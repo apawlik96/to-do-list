@@ -1,0 +1,105 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  outline: none;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  height: 100vh;
+  background-image: url('../images/bg-desktop-dark.jpg');
+  background-color: #1d1935;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: top; 
+}
+
+@media (max-width: 550px) {
+  body {
+    background-image: url('../images/bg-mobile-dark.jpg');
+  }
+}
+
+/* to do list */
+.task-list {
+  color: #fff;
+  font-weight: 300;
+  background-color: #272a46;
+  border-radius: 10px;
+}
+
+.task-select {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px;
+  font-size: 12px;
+}
+
+.task-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #494c6b;
+  padding: 25px;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+}
+
+.task-item p {
+  flex: 1;
+  padding: 0 20px;
+  font-size: 1.2rem;
+}
+
+.task-item input {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background-color: #272a46;
+  border-radius: 50%;
+  border: 2px solid #494c6b;
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.task-item input:checked {
+  background: linear-gradient(to bottom right, rgb(0, 132, 255), violet);
+  border-color: #2e9acc;
+}
+
+.task-item button {
+  visibility: hidden;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: #494c6b;
+  padding-left: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.task-item:hover {
+  button {
+    visibility: visible;
+  }
+}
+
+@media (max-width: 550px) {
+  .task-item button {
+    visibility: visible;
+  }
+  .task-item p{
+    font-size: 1rem;
+  }
+}
