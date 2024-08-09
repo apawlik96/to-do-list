@@ -1,0 +1,81 @@
+.task-list {
+  color: #fff;
+  font-weight: 300;
+  background-color: #272a46;
+  border-radius: 10px;
+}
+
+.task-select {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px;
+  font-size: 12px;
+}
+
+.task-select p {
+  color: #494c6b;
+  font-weight: 400;
+}
+
+.task-select-button-group button {
+  background-color: transparent;
+  border: none;
+  color: #494c6b;
+  font-weight: 500;
+  padding: 0 5px;
+  transition: all 0.3s ease;
+}
+
+.task-select-button-group button:hover {
+  color: #2e9acc;
+  cursor: pointer;
+}
+
+@media (min-width: 550px) {
+  .task-select-button-group-separated {
+    display: none;
+  }
+}
+
+@media (max-width: 550px) {
+  .task-select-button-group {
+    display: none;
+  }
+  .task-select-button-group-separated {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #272a46;
+    padding: 25px;
+    margin-top: 2rem;
+    border-radius: 10px;
+  }
+
+  .task-select-button-group-separated button {
+    background-color: transparent;
+    border: none;
+    color: #494c6b;
+    font-weight: 500;
+    padding: 0 10px;
+    transition: all 0.3s ease;
+  }
+
+  .task-select-button-group-separated button:hover {
+    color: #2e9acc;
+    cursor: pointer;
+  }
+}
+
+.button-clear-completed-task {
+  background-color: transparent;
+  border: none;
+  color: #494c6b;
+  font-weight: 400;
+  transition: all 0.3s ease;
+}
+
+.button-clear-completed-task:hover {
+  color: #2e9acc;
+  cursor: pointer;
+}

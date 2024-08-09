@@ -1,3 +1,5 @@
+import './Task.css'
+
 export const Task = ({text}) => {
     return (
         <div className="task-item">
