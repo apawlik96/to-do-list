@@ -1,8 +1,8 @@
-import './Task.css'
+import stylesTask from './Task.module.css'
 
 export const Task = ({text}) => {
     return (
-        <div className="task-item">
+        <div className={stylesTask.taskItem}>
             <input type="checkbox"/>
             <p>{text}</p>
             <button>

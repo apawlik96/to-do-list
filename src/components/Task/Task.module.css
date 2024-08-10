@@ -1,4 +1,4 @@
-.task-item {
+.taskItem {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -8,13 +8,13 @@
   transition: all 0.3s ease;
 }
 
-.task-item p {
+.taskItem p {
   flex: 1;
   padding: 0 20px;
   font-size: 1.2rem;
 }
 
-.task-item input {
+.taskItem input {
   appearance: none;
   width: 20px;
   height: 20px;
@@ -28,12 +28,12 @@
   transition: all 0.3s ease;
 }
 
-.task-item input:checked {
+.taskItem input:checked {
   background: linear-gradient(to bottom right, rgb(0, 132, 255), violet);
   border-color: #2e9acc;
 }
 
-.task-item button {
+.taskItem button {
   visibility: hidden;
   background-color: transparent;
   border: none;
@@ -44,17 +44,17 @@
   transition: all 0.3s ease;
 }
 
-.task-item:hover {
+.taskItem:hover {
   button {
     visibility: visible;
   }
 }
 
 @media (max-width: 550px) {
-  .task-item button {
+  .taskItem button {
     visibility: visible;
   }
-  .task-item p{
+  .taskItem p{
     font-size: 1rem;
   }
 }

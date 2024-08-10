@@ -1,11 +1,11 @@
-.task-list {
+.taskList {
   color: #fff;
   font-weight: 300;
   background-color: #272a46;
   border-radius: 10px;
 }
 
-.task-select {
+.taskSelect {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -13,12 +13,12 @@
   font-size: 12px;
 }
 
-.task-select p {
+.taskSelect p {
   color: #494c6b;
   font-weight: 400;
 }
 
-.task-select-button-group button {
+.taskSelectButtonGroup button {
   background-color: transparent;
   border: none;
   color: #494c6b;
@@ -27,22 +27,22 @@
   transition: all 0.3s ease;
 }
 
-.task-select-button-group button:hover {
+.taskSelectButtonGroup button:hover {
   color: #2e9acc;
   cursor: pointer;
 }
 
 @media (min-width: 550px) {
-  .task-select-button-group-separated {
+  .taskSelectButtonGroupSeparated {
     display: none;
   }
 }
 
 @media (max-width: 550px) {
-  .task-select-button-group {
+  .taskSelectButtonGroup {
     display: none;
   }
-  .task-select-button-group-separated {
+  .taskSelectButtonGroupSeparated {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -52,7 +52,7 @@
     border-radius: 10px;
   }
 
-  .task-select-button-group-separated button {
+  .taskSelectButtonGroupSeparated button {
     background-color: transparent;
     border: none;
     color: #494c6b;
@@ -61,13 +61,13 @@
     transition: all 0.3s ease;
   }
 
-  .task-select-button-group-separated button:hover {
+  .taskSelectButtonGroupSeparated button:hover {
     color: #2e9acc;
     cursor: pointer;
   }
 }
 
-.button-clear-completed-task {
+.buttonClearCompletedTask {
   background-color: transparent;
   border: none;
   color: #494c6b;
@@ -75,7 +75,7 @@
   transition: all 0.3s ease;
 }
 
-.button-clear-completed-task:hover {
+.buttonClearCompletedTask:hover {
   color: #2e9acc;
   cursor: pointer;
 }
