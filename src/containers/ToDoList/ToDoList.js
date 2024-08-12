@@ -1,5 +1,5 @@
 import { Task } from '../../components/Task/Task';
-import toDoListStyles from '../ToDoList/ToDoList.module.css';
+import { Div, DivSelect, P, DivSelectButtonGroup, DivSelectButtonGroupSeparated, ButtonClearCompletedTask } from './ToDoList.styles.js';
 
 export const ToDoList = () => {
 
@@ -15,29 +15,29 @@ export const ToDoList = () => {
     return (
 
         <>
-            <div className={toDoListStyles.taskList}>
+            <Div>
 
                 {tasks.map((task) => (
                     <Task text={task} />
                 ))}
 
-                <div className={toDoListStyles.taskSelect}>
-                    <p>Items left</p>
-                    <div className={toDoListStyles.taskSelectButtonGroup}>
+                <DivSelect>
+                    <P>Items left</P>
+                    <DivSelectButtonGroup>
                         <button>All</button>
                         <button>Active</button>
                         <button>Completed</button>
-                    </div>
-                    <button className={toDoListStyles.buttonClearCompletedTask}>Clear Completed</button>
-                </div>
+                    </DivSelectButtonGroup>
+                    <ButtonClearCompletedTask>Clear Completed</ButtonClearCompletedTask>
+                </DivSelect>
 
-            </div>
+            </Div>
 
-            <div className={toDoListStyles.taskSelectButtonGroupSeparated}>
+            <DivSelectButtonGroupSeparated>
                 <button>All</button>
                 <button>Active</button>
                 <button>Completed</button>
-            </div>
+            </DivSelectButtonGroupSeparated>
         </>
 
     );

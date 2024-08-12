@@ -1,4 +1,6 @@
-.taskItem {
+import styled from 'styled-components';
+
+export const Div = styled.div `
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -6,15 +8,25 @@
   padding: 25px;
   font-size: 1.2rem;
   transition: all 0.3s ease;
-}
 
-.taskItem p {
+  &:hover {
+    button {
+      visibility: visible;
+    }
+  }
+`;
+
+export const P = styled.p `
   flex: 1;
   padding: 0 20px;
   font-size: 1.2rem;
-}
 
-.taskItem input {
+  @media (max-width: 550px) {
+    font-size: 1rem;
+  }
+`;
+
+export const Input = styled.input `
   appearance: none;
   width: 20px;
   height: 20px;
@@ -26,14 +38,14 @@
   position: relative;
   outline: none;
   transition: all 0.3s ease;
-}
 
-.taskItem input:checked {
-  background: linear-gradient(to bottom right, rgb(0, 132, 255), violet);
-  border-color: #2e9acc;
+  &:checked {
+    background: linear-gradient(to bottom right, rgb(0, 132, 255), violet);
+    border-color: #2e9acc;
 }
+`
 
-.taskItem button {
+export const Button = styled.button `
   visibility: hidden;
   background-color: transparent;
   border: none;
@@ -42,19 +54,8 @@
   color: #494c6b;
   padding-left: 1.5rem;
   transition: all 0.3s ease;
-}
 
-.taskItem:hover {
-  button {
+  @media (max-width: 550px) {
     visibility: visible;
   }
-}
-
-@media (max-width: 550px) {
-  .taskItem button {
-    visibility: visible;
-  }
-  .taskItem p{
-    font-size: 1rem;
-  }
-}
+`
