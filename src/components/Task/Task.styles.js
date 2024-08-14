@@ -26,6 +26,18 @@ export const P = styled.p `
   }
 `;
 
+export const PMark = styled.p `
+  flex: 1;
+  padding: 0 20px;
+  font-size: 1.2rem;
+  color: #494c6b;
+  text-decoration: line-through;
+
+  @media (max-width: 550px) {
+    font-size: 1rem;
+  }
+`;
+
 export const Input = styled.input `
   appearance: none;
   width: 20px;
