@@ -1,26 +1,31 @@
 import CloseIcon from "@mui/icons-material/Close";
-import { Div, P, Input, Button, PMark } from "./Task.styles.js";
+import {
+  StyledWrapper,
+  StyledParagraph,
+  StyledInput,
+  StyledButton,
+} from "./Task.styles.js";
 import { useState } from "react";
 
 export const Task = ({ text }) => {
-  const [markTask, setMarkTask] = useState(false);
+  const [isTaskMarked, setIsTaskMarked] = useState(false);
 
   const handleCheckboxChange = () => {
-    setMarkTask((prevMarkTask) => !prevMarkTask);
+    setIsTaskMarked((prevMarkTask) => !prevMarkTask);
   };
 
   return (
-    <Div>
-      <Input
+    <StyledWrapper>
+      <StyledInput
         type="checkbox"
-        checked={markTask}
+        checked={isTaskMarked}
         onChange={handleCheckboxChange}
       />
-      {!markTask ? <P>{text}</P> : <PMark>{text}</PMark>}
+      <StyledParagraph isMarked={isTaskMarked}>{text}</StyledParagraph>
 
-      <Button>
+      <StyledButton>
         <CloseIcon />
-      </Button>
-    </Div>
+      </StyledButton>
+    </StyledWrapper>
   );
 };

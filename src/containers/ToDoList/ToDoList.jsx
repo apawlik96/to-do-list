@@ -1,11 +1,11 @@
 import { Task } from "../../components/Task/Task.jsx";
 import {
-  Div,
-  DivSelect,
-  P,
-  DivSelectButtonGroup,
-  DivSelectButtonGroupSeparated,
-  ButtonClearCompletedTask,
+  StyledWrapper,
+  StyledWrapperSelect,
+  StyledParagraph,
+  StyledWrapperSelectButtonGroup,
+  StyledWrapperSelectButtonGroupSeparated,
+  StyledButtonClearCompletedTask,
 } from "./ToDoList.styles.js";
 
 export const ToDoList = () => {
@@ -20,27 +20,29 @@ export const ToDoList = () => {
 
   return (
     <>
-      <Div>
+      <StyledWrapper>
         {tasks.map((task) => (
           <Task text={task} />
         ))}
 
-        <DivSelect>
-          <P>Items left</P>
-          <DivSelectButtonGroup>
+        <StyledWrapperSelect>
+          <StyledParagraph>Items left</StyledParagraph>
+          <StyledWrapperSelectButtonGroup>
             <button>All</button>
             <button>Active</button>
             <button>Completed</button>
-          </DivSelectButtonGroup>
-          <ButtonClearCompletedTask>Clear Completed</ButtonClearCompletedTask>
-        </DivSelect>
-      </Div>
+          </StyledWrapperSelectButtonGroup>
+          <StyledButtonClearCompletedTask>
+            Clear Completed
+          </StyledButtonClearCompletedTask>
+        </StyledWrapperSelect>
+      </StyledWrapper>
 
-      <DivSelectButtonGroupSeparated>
+      <StyledWrapperSelectButtonGroupSeparated>
         <button>All</button>
         <button>Active</button>
         <button>Completed</button>
-      </DivSelectButtonGroupSeparated>
+      </StyledWrapperSelectButtonGroupSeparated>
     </>
   );
 };
