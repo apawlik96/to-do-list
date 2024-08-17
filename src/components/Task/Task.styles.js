@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Div = styled.div `
+export const StyledWrapper = styled.div `
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -16,17 +16,19 @@ export const Div = styled.div `
   }
 `;
 
-export const P = styled.p `
+export const StyledParagraph = styled.p `
   flex: 1;
   padding: 0 20px;
   font-size: 1.2rem;
+  color: ${({ isMarked }) => (isMarked ? '#494c6b' : '#fff')};
+  text-decoration: ${({ isMarked }) => (isMarked ? 'line-through' : 'none')};
 
   @media (max-width: 550px) {
     font-size: 1rem;
   }
 `;
 
-export const Input = styled.input `
+export const StyledInput = styled.input `
   appearance: none;
   width: 20px;
   height: 20px;
@@ -45,7 +47,7 @@ export const Input = styled.input `
 }
 `
 
-export const Button = styled.button `
+export const StyledButton = styled.button `
   visibility: hidden;
   background-color: transparent;
   border: none;

@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 
-export const Div = styled.div `
+export const StyledWrapper = styled.div `
   color: #fff;
   font-weight: 300;
   background-color: #272a46;
   border-radius: 10px;
 `
 
-export const DivSelect = styled.div `
+export const StyledWrapperSelect = styled.div `
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -15,12 +15,12 @@ export const DivSelect = styled.div `
   font-size: 12px;
 `
 
-export const P = styled.p `
+export const StyledParagraph = styled.p `
   color: #494c6b;
   font-weight: 400;
 `
 
-export const DivSelectButtonGroup = styled.div `
+export const StyledWrapperSelectButtonGroup = styled.div `
   @media (max-width: 550px) {
     display: none;
   }
@@ -40,7 +40,7 @@ export const DivSelectButtonGroup = styled.div `
   }
 `
 
-export const DivSelectButtonGroupSeparated = styled.div `
+export const StyledWrapperSelectButtonGroupSeparated = styled.div `
   @media (min-width: 550px) {
     display: none;
   }
@@ -71,7 +71,7 @@ export const DivSelectButtonGroupSeparated = styled.div `
 }
 `
 
-export const ButtonClearCompletedTask = styled.button `
+export const StyledButtonClearCompletedTask = styled.button `
   background-color: transparent;
   border: none;
   color: #494c6b;
