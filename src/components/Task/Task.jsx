@@ -9,23 +9,32 @@ import { useState } from "react";
 
 export const Task = ({ text }) => {
   const [isTaskMarked, setIsTaskMarked] = useState(false);
+  const [isTaskDeleted, setIsTaskDeleted] = useState(false);
 
   const handleCheckboxChange = () => {
     setIsTaskMarked((prevMarkTask) => !prevMarkTask);
   };
 
-  return (
-    <StyledWrapper>
-      <StyledInput
-        type="checkbox"
-        checked={isTaskMarked}
-        onChange={handleCheckboxChange}
-      />
-      <StyledParagraph isMarked={isTaskMarked}>{text}</StyledParagraph>
+  const handleDeleteTask = () => {
+    setIsTaskDeleted(true);
+  };
 
-      <StyledButton>
-        <CloseIcon />
-      </StyledButton>
-    </StyledWrapper>
+  return (
+    <>
+      {!isTaskDeleted ? (
+        <StyledWrapper>
+          <StyledInput
+            type="checkbox"
+            checked={isTaskMarked}
+            onChange={handleCheckboxChange}
+          />
+          <StyledParagraph isMarked={isTaskMarked}>{text}</StyledParagraph>
+
+          <StyledButton onClick={handleDeleteTask}>
+            <CloseIcon />
+          </StyledButton>
+        </StyledWrapper>
+      ) : null}
+    </>
   );
 };
