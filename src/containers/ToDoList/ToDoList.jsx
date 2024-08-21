@@ -7,22 +7,41 @@ import {
   StyledWrapperSelectButtonGroupSeparated,
   StyledButtonClearCompletedTask,
 } from "./ToDoList.styles.js";
+import { useState } from "react";
 
 export const ToDoList = () => {
-  const tasks = [
-    "Complete online JavaScript course",
-    "Jog around the park 3x",
-    "10 minutes meditation",
-    "Read for 1 hour",
-    "Pick up groceries",
-    "Complete Todo App on Frontend Mentor",
-  ];
+  const [tasks, setTasks] = useState([
+    { id: 1, text: "Complete online JavaScript course", checked: false },
+    { id: 2, text: "Jog around the park 3x", checked: false },
+    { id: 3, text: "10 minutes meditation", checked: false },
+    { id: 4, text: "Read for 1 hour", checked: false },
+    { id: 5, text: "Pick up groceries", checked: false },
+    { id: 6, text: "Complete Todo App on Frontend Mentor", checked: false },
+  ]);
+
+  const handleTaskMark = (id) => {
+    setTasks(
+      tasks.map((task) =>
+        task.id === id ? { ...task, checked: !task.checked } : task
+      )
+    );
+  };
+
+  const handleDeleteTask = (id) => {
+    setTasks(tasks.filter((task) => task.id !== id));
+  };
 
   return (
     <>
       <StyledWrapper>
         {tasks.map((task) => (
-          <Task text={task} />
+          <Task
+            id={task.id}
+            text={task.text}
+            checked={task.checked}
+            onChange={handleTaskMark}
+            onClick={handleDeleteTask}
+          />
         ))}
 
         <StyledWrapperSelect>

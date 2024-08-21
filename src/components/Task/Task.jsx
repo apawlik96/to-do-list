@@ -5,36 +5,21 @@ import {
   StyledInput,
   StyledButton,
 } from "./Task.styles.js";
-import { useState } from "react";
 
-export const Task = ({ text }) => {
-  const [isTaskMarked, setIsTaskMarked] = useState(false);
-  const [isTaskDeleted, setIsTaskDeleted] = useState(false);
-
-  const handleCheckboxChange = () => {
-    setIsTaskMarked((prevMarkTask) => !prevMarkTask);
-  };
-
-  const handleDeleteTask = () => {
-    setIsTaskDeleted(true);
-  };
-
+export const Task = ({ id, text, checked, onChange, onClick }) => {
   return (
     <>
-      {!isTaskDeleted ? (
-        <StyledWrapper>
-          <StyledInput
-            type="checkbox"
-            checked={isTaskMarked}
-            onChange={handleCheckboxChange}
-          />
-          <StyledParagraph isMarked={isTaskMarked}>{text}</StyledParagraph>
-
-          <StyledButton onClick={handleDeleteTask}>
-            <CloseIcon />
-          </StyledButton>
-        </StyledWrapper>
-      ) : null}
+      <StyledWrapper>
+        <StyledInput
+          type="checkbox"
+          checked={checked}
+          onChange={() => onChange(id)}
+        />
+        <StyledParagraph isMarked={checked}>{text}</StyledParagraph>
+        <StyledButton onClick={() => onClick(id)}>
+          <CloseIcon />
+        </StyledButton>
+      </StyledWrapper>
     </>
   );
 };
