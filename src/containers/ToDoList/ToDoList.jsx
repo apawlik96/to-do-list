@@ -6,6 +6,7 @@ import {
   StyledWrapperSelectButtonGroup,
   StyledWrapperSelectButtonGroupSeparated,
   StyledButtonClearCompletedTask,
+  StyledWrapperNewTask,
 } from "./ToDoList.styles.js";
 import { useState } from "react";
 
@@ -18,6 +19,7 @@ export const ToDoList = () => {
     { id: 5, text: "Pick up groceries", checked: false },
     { id: 6, text: "Complete Todo App on Frontend Mentor", checked: false },
   ]);
+  const [newTask, setNewTask] = useState("");
 
   const handleTaskMark = (id) => {
     setTasks(
@@ -31,8 +33,30 @@ export const ToDoList = () => {
     setTasks(tasks.filter((task) => task.id !== id));
   };
 
+  const handleAddNewTask = () => {
+    if (newTask.trim() !== "") {
+      const newTaskObject = {
+        id: tasks[tasks.length - 1].id + 1,
+        text: newTask,
+        checked: false,
+      };
+      setTasks(tasks.concat(newTaskObject));
+      setNewTask("");
+    }
+  };
+
   return (
     <>
+      <StyledWrapperNewTask>
+        <button onClick={handleAddNewTask}></button>
+        <input
+          type="text"
+          placeholder="Create a new todo..."
+          value={newTask}
+          onChange={(e) => setNewTask(e.target.value)}
+        />
+      </StyledWrapperNewTask>
+
       <StyledWrapper>
         {tasks.map((task) => (
           <Task

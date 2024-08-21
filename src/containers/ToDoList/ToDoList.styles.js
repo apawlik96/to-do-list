@@ -83,3 +83,42 @@ export const StyledButtonClearCompletedTask = styled.button `
     cursor: pointer;
   }
 `
+
+export const StyledWrapperNewTask = styled.div `
+  color: #fff;
+  font-weight: 300;
+  background-color: #272a46;
+  border-radius: 10px;
+  margin-bottom: 3rem;
+  padding: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  button {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background-color: #272a46;
+    border-radius: 50%;
+    border: 2px solid #494c6b;
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    outline: none;
+    transition: all 0.3s ease;
+  }
+
+  input {
+    flex: 1;
+    padding: 0 20px;
+    font-size: 1.2rem;
+    background-color: transparent;
+    border: none;
+    color: #fff;
+
+    &::placeholder {
+      color: #494c6b; 
+    }
+  }
+`
