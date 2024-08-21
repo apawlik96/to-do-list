@@ -39,8 +39,8 @@ export const ToDoList = () => {
             id={task.id}
             text={task.text}
             checked={task.checked}
-            onChange={handleTaskMark}
-            onClick={handleDeleteTask}
+            onCheck={handleTaskMark}
+            onDelete={handleDeleteTask}
           />
         ))}
 
