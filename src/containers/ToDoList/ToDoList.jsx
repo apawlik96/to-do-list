@@ -9,6 +9,8 @@ import {
   StyledWrapperNewTask,
 } from "./ToDoList.styles.js";
 import { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
+import AddIcon from "@mui/icons-material/Add";
 
 export const ToDoList = () => {
   const [tasks, setTasks] = useState([
@@ -34,25 +36,35 @@ export const ToDoList = () => {
   };
 
   const handleAddNewTask = () => {
-    if (newTask.trim() !== "") {
-      const newTaskObject = {
-        id: tasks[tasks.length - 1].id + 1,
-        text: newTask,
-        checked: false,
-      };
-      setTasks(tasks.concat(newTaskObject));
-      setNewTask("");
+    if (newTask.trim() === "") {
+      return;
+    }
+    const newTaskObject = {
+      id: uuidv4(),
+      text: newTask,
+      checked: false,
+    };
+    setTasks(tasks.concat(newTaskObject));
+    setNewTask("");
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleAddNewTask();
     }
   };
 
   return (
     <>
       <StyledWrapperNewTask>
-        <button onClick={handleAddNewTask}></button>
+        <button onClick={handleAddNewTask}>
+          <AddIcon />
+        </button>
         <input
           type="text"
           placeholder="Create a new todo..."
           value={newTask}
+          onKeyDown={handleKeyDown}
           onChange={(e) => setNewTask(e.target.value)}
         />
       </StyledWrapperNewTask>

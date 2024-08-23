@@ -96,17 +96,30 @@ export const StyledWrapperNewTask = styled.div `
   align-items: center;
 
   button {
-    appearance: none;
-    width: 20px;
-    height: 20px;
+    width: 25px;
+    height: 25px;
     background-color: #272a46;
     border-radius: 50%;
     border: 2px solid #494c6b;
     cursor: pointer;
-    display: inline-block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: relative;
     outline: none;
-    transition: all 0.3s ease;
+
+    svg {
+      color: #494c6b;
+      transition: all 0.3s ease;
+    }
+
+    &:hover {
+      svg {
+        color: #ffffff;
+      }
+    }
+  }
+
   }
 
   input {
