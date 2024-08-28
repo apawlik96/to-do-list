@@ -6,8 +6,11 @@ import {
   StyledWrapperSelectButtonGroup,
   StyledWrapperSelectButtonGroupSeparated,
   StyledButtonClearCompletedTask,
+  StyledWrapperNewTask,
 } from "./ToDoList.styles.js";
 import { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
+import AddIcon from "@mui/icons-material/Add";
 
 export const ToDoList = () => {
   const [tasks, setTasks] = useState([
@@ -18,6 +21,7 @@ export const ToDoList = () => {
     { id: 5, text: "Pick up groceries", checked: false },
     { id: 6, text: "Complete Todo App on Frontend Mentor", checked: false },
   ]);
+  const [newTask, setNewTask] = useState("");
 
   const handleTaskMark = (id) => {
     setTasks(
@@ -31,8 +35,40 @@ export const ToDoList = () => {
     setTasks(tasks.filter((task) => task.id !== id));
   };
 
+  const handleAddNewTask = () => {
+    if (newTask.trim() === "") {
+      return;
+    }
+    const newTaskObject = {
+      id: uuidv4(),
+      text: newTask,
+      checked: false,
+    };
+    setTasks(tasks.concat(newTaskObject));
+    setNewTask("");
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleAddNewTask();
+    }
+  };
+
   return (
     <>
+      <StyledWrapperNewTask>
+        <button onClick={handleAddNewTask}>
+          <AddIcon />
+        </button>
+        <input
+          type="text"
+          placeholder="Create a new todo..."
+          value={newTask}
+          onKeyDown={handleKeyDown}
+          onChange={(e) => setNewTask(e.target.value)}
+        />
+      </StyledWrapperNewTask>
+
       <StyledWrapper>
         {tasks.map((task) => (
           <Task
