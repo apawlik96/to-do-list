@@ -25,3 +25,7 @@ body {
     background-image: url("../images/bg-mobile-dark.jpg");
   }
 }
+
+#root {
+  width: 600px;
+}
