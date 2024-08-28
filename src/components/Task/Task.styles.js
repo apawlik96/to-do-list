@@ -29,6 +29,8 @@ export const StyledParagraph = styled.p `
 `;
 
 export const StyledInput = styled.input `
+  flex: 0;
+  padding: 10px; 
   appearance: none;
   width: 20px;
   height: 20px;

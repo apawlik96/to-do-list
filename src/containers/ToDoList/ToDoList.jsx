@@ -39,11 +39,13 @@ export const ToDoList = () => {
     if (newTask.trim() === "") {
       return;
     }
+
     const newTaskObject = {
       id: uuidv4(),
       text: newTask,
       checked: false,
     };
+
     setTasks(tasks.concat(newTaskObject));
     setNewTask("");
   };
@@ -81,7 +83,9 @@ export const ToDoList = () => {
         ))}
 
         <StyledWrapperSelect>
-          <StyledParagraph>Items left</StyledParagraph>
+          <StyledParagraph>
+            {tasks.filter((task) => task.checked).length} items left
+          </StyledParagraph>
           <StyledWrapperSelectButtonGroup>
             <button>All</button>
             <button>Active</button>
