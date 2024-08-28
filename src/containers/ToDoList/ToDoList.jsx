@@ -56,6 +56,10 @@ export const ToDoList = () => {
     }
   };
 
+  const handleClearCompletedTasks = () => {
+    setTasks(tasks.filter((task) => !task.checked));
+  };
+
   return (
     <>
       <StyledWrapperNewTask>
@@ -91,7 +95,7 @@ export const ToDoList = () => {
             <button>Active</button>
             <button>Completed</button>
           </StyledWrapperSelectButtonGroup>
-          <StyledButtonClearCompletedTask>
+          <StyledButtonClearCompletedTask onClick={handleClearCompletedTasks}>
             Clear Completed
           </StyledButtonClearCompletedTask>
         </StyledWrapperSelect>
