@@ -22,7 +22,7 @@ export const ToDoList = () => {
     { id: 5, text: "Pick up groceries", checked: false },
     { id: 6, text: "Complete Todo App on Frontend Mentor", checked: false },
   ]);
-  const [newTask, setNewTask] = useState("");
+  const [newTaskInput, setNewTaskInput] = useState("");
   const [filterTask, setFilterTask] = useState("all");
 
   const handleTaskMark = (id) => {
@@ -38,18 +38,18 @@ export const ToDoList = () => {
   };
 
   const handleAddNewTask = () => {
-    if (newTask.trim() === "") {
+    if (newTaskInput.trim() === "") {
       return;
     }
 
     const newTaskObject = {
       id: uuidv4(),
-      text: newTask,
+      text: newTaskInput,
       checked: false,
     };
 
     setTasks(tasks.concat(newTaskObject));
-    setNewTask("");
+    setNewTaskInput("");
   };
 
   const handleKeyDown = (e) => {
@@ -84,9 +84,9 @@ export const ToDoList = () => {
         <input
           type="text"
           placeholder="Create a new todo..."
-          value={newTask}
+          value={newTaskInput}
           onKeyDown={handleKeyDown}
-          onChange={(e) => setNewTask(e.target.value)}
+          onChange={(e) => setNewTaskInput(e.target.value)}
         />
       </StyledWrapperNewTask>
 
