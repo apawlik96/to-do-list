@@ -28,6 +28,12 @@ export const ToDoList = () => {
   const [newTaskInput, setNewTaskInput] = useState("");
   const [filteringType, setFilteringType] = useState("all");
 
+  const FilterType = {
+    ALL: "all",
+    ACTIVE: "active",
+    COMPLETED: "completed",
+  };
+
   const handleTaskMark = (id) => {
     setTasks(
       tasks.map((task) =>
@@ -66,12 +72,12 @@ export const ToDoList = () => {
   };
 
   const taskFilters = {
-    all: () => true,
-    active: (task) => !task.checked,
-    completed: (task) => task.checked,
+    [FilterType.ALL]: () => true,
+    [FilterType.ACTIVE]: (task) => !task.checked,
+    [FilterType.COMPLETED]: (task) => task.checked,
   };
 
-  const filteredTasks = filteringType
+  const filteredTasks = FilterType.ALL
     ? tasks.filter(taskFilters[filteringType])
     : tasks;
 
@@ -107,20 +113,20 @@ export const ToDoList = () => {
           </StyledParagraph>
           <StyledWrapperSelectButtonGroup>
             <StyledFilterButton
-              isActive={filteringType === "all"}
-              onClick={() => setFilteringType("all")}
+              isActive={filteringType === FilterType.ALL}
+              onClick={() => setFilteringType(FilterType.ALL)}
             >
               All
             </StyledFilterButton>
             <StyledFilterButton
-              isActive={filteringType === "active"}
-              onClick={() => setFilteringType("active")}
+              isActive={filteringType === FilterType.ACTIVE}
+              onClick={() => setFilteringType(FilterType.ACTIVE)}
             >
               Active
             </StyledFilterButton>
             <StyledFilterButton
-              isActive={filteringType === "completed"}
-              onClick={() => setFilteringType("completed")}
+              isActive={filteringType === FilterType.COMPLETED}
+              onClick={() => setFilteringType(FilterType.COMPLETED)}
             >
               Completed
             </StyledFilterButton>
@@ -133,20 +139,20 @@ export const ToDoList = () => {
 
       <StyledWrapperSelectButtonGroupSeparated>
         <StyledFilterButton
-          isActive={filteringType === "all"}
-          onClick={() => setFilteringType("all")}
+          isActive={filteringType === FilterType.ALL}
+          onClick={() => setFilteringType(FilterType.ALL)}
         >
           All
         </StyledFilterButton>
         <StyledFilterButton
-          isActive={filteringType === "active"}
-          onClick={() => setFilteringType("active")}
+          isActive={filteringType === FilterType.ACTIVE}
+          onClick={() => setFilteringType(FilterType.ACTIVE)}
         >
           Active
         </StyledFilterButton>
         <StyledFilterButton
-          isActive={filteringType === "completed"}
-          onClick={() => setFilteringType("completed")}
+          isActive={filteringType === FilterType.COMPLETED}
+          onClick={() => setFilteringType(FilterType.COMPLETED)}
         >
           Completed
         </StyledFilterButton>
