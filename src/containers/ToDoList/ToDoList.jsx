@@ -16,6 +16,37 @@ import AddIcon from "@mui/icons-material/Add";
 const activeTasksFilter = (task) => !task.checked;
 const completedTasksFilter = (task) => task.checked;
 
+const FilterType = {
+  ALL: "all",
+  ACTIVE: "active",
+  COMPLETED: "completed",
+};
+
+const ButtonFilter = ({ filteringType, setFilteringType }) => {
+  return (
+    <>
+      <StyledFilterButton
+        isActive={filteringType === FilterType.ALL}
+        onClick={() => setFilteringType(FilterType.ALL)}
+      >
+        All
+      </StyledFilterButton>
+      <StyledFilterButton
+        isActive={filteringType === FilterType.ACTIVE}
+        onClick={() => setFilteringType(FilterType.ACTIVE)}
+      >
+        Active
+      </StyledFilterButton>
+      <StyledFilterButton
+        isActive={filteringType === FilterType.COMPLETED}
+        onClick={() => setFilteringType(FilterType.COMPLETED)}
+      >
+        Completed
+      </StyledFilterButton>
+    </>
+  );
+};
+
 export const ToDoList = () => {
   const [tasks, setTasks] = useState([
     { id: 1, text: "Complete online JavaScript course", checked: false },
@@ -27,12 +58,6 @@ export const ToDoList = () => {
   ]);
   const [newTaskInput, setNewTaskInput] = useState("");
   const [filteringType, setFilteringType] = useState("all");
-
-  const FilterType = {
-    ALL: "all",
-    ACTIVE: "active",
-    COMPLETED: "completed",
-  };
 
   const handleTaskMark = (id) => {
     setTasks(
@@ -112,24 +137,10 @@ export const ToDoList = () => {
             {tasks.filter(completedTasksFilter).length} items left
           </StyledParagraph>
           <StyledWrapperSelectButtonGroup>
-            <StyledFilterButton
-              isActive={filteringType === FilterType.ALL}
-              onClick={() => setFilteringType(FilterType.ALL)}
-            >
-              All
-            </StyledFilterButton>
-            <StyledFilterButton
-              isActive={filteringType === FilterType.ACTIVE}
-              onClick={() => setFilteringType(FilterType.ACTIVE)}
-            >
-              Active
-            </StyledFilterButton>
-            <StyledFilterButton
-              isActive={filteringType === FilterType.COMPLETED}
-              onClick={() => setFilteringType(FilterType.COMPLETED)}
-            >
-              Completed
-            </StyledFilterButton>
+            <ButtonFilter
+              filteringType={filteringType}
+              setFilteringType={setFilteringType}
+            />
           </StyledWrapperSelectButtonGroup>
           <StyledButtonClearCompletedTask onClick={clearCompletedTasks}>
             Clear Completed
@@ -138,24 +149,10 @@ export const ToDoList = () => {
       </StyledWrapper>
 
       <StyledWrapperSelectButtonGroupSeparated>
-        <StyledFilterButton
-          isActive={filteringType === FilterType.ALL}
-          onClick={() => setFilteringType(FilterType.ALL)}
-        >
-          All
-        </StyledFilterButton>
-        <StyledFilterButton
-          isActive={filteringType === FilterType.ACTIVE}
-          onClick={() => setFilteringType(FilterType.ACTIVE)}
-        >
-          Active
-        </StyledFilterButton>
-        <StyledFilterButton
-          isActive={filteringType === FilterType.COMPLETED}
-          onClick={() => setFilteringType(FilterType.COMPLETED)}
-        >
-          Completed
-        </StyledFilterButton>
+        <ButtonFilter
+          filteringType={filteringType}
+          setFilteringType={setFilteringType}
+        />
       </StyledWrapperSelectButtonGroupSeparated>
     </>
   );
