@@ -13,6 +13,9 @@ import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import AddIcon from "@mui/icons-material/Add";
 
+const activeTasksFilter = (task) => !task.checked;
+const completedTasksFilter = (task) => task.checked;
+
 export const ToDoList = () => {
   const [tasks, setTasks] = useState([
     { id: 1, text: "Complete online JavaScript course", checked: false },
@@ -59,7 +62,7 @@ export const ToDoList = () => {
   };
 
   const clearCompletedTasks = () => {
-    setTasks(tasks.filter((task) => !task.checked));
+    setTasks(tasks.filter(activeTasksFilter));
   };
 
   const handleFilterTask = () => {
@@ -67,9 +70,9 @@ export const ToDoList = () => {
       case "all":
         return tasks;
       case "active":
-        return tasks.filter((task) => !task.checked);
+        return tasks.filter(activeTasksFilter);
       case "completed":
-        return tasks.filter((task) => task.checked);
+        return tasks.filter(completedTasksFilter);
       default:
         return tasks;
     }
@@ -103,7 +106,7 @@ export const ToDoList = () => {
 
         <StyledWrapperSelect>
           <StyledParagraph>
-            {tasks.filter((task) => task.checked).length} items left
+            {tasks.filter(completedTasksFilter).length} items left
           </StyledParagraph>
           <StyledWrapperSelectButtonGroup>
             <StyledFilterButton
