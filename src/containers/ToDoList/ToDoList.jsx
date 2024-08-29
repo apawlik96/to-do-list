@@ -65,18 +65,15 @@ export const ToDoList = () => {
     setTasks(tasks.filter(activeTasksFilter));
   };
 
-  const handleFilterTask = () => {
-    switch (filteringType) {
-      case "all":
-        return tasks;
-      case "active":
-        return tasks.filter(activeTasksFilter);
-      case "completed":
-        return tasks.filter(completedTasksFilter);
-      default:
-        return tasks;
-    }
+  const taskFilters = {
+    all: () => true,
+    active: (task) => !task.checked,
+    completed: (task) => task.checked,
   };
+
+  const filteredTasks = filteringType
+    ? tasks.filter(taskFilters[filteringType])
+    : tasks;
 
   return (
     <>
@@ -94,7 +91,7 @@ export const ToDoList = () => {
       </StyledWrapperNewTask>
 
       <StyledWrapper>
-        {handleFilterTask().map((task) => (
+        {filteredTasks.map((task) => (
           <Task
             id={task.id}
             text={task.text}
