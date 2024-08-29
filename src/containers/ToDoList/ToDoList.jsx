@@ -23,7 +23,7 @@ export const ToDoList = () => {
     { id: 6, text: "Complete Todo App on Frontend Mentor", checked: false },
   ]);
   const [newTaskInput, setNewTaskInput] = useState("");
-  const [filterTask, setFilterTask] = useState("all");
+  const [filteringType, setFilteringType] = useState("all");
 
   const handleTaskMark = (id) => {
     setTasks(
@@ -58,12 +58,12 @@ export const ToDoList = () => {
     }
   };
 
-  const handleClearCompletedTasks = () => {
+  const clearCompletedTasks = () => {
     setTasks(tasks.filter((task) => !task.checked));
   };
 
   const handleFilterTask = () => {
-    switch (filterTask) {
+    switch (filteringType) {
       case "all":
         return tasks;
       case "active":
@@ -107,25 +107,25 @@ export const ToDoList = () => {
           </StyledParagraph>
           <StyledWrapperSelectButtonGroup>
             <StyledFilterButton
-              isActive={filterTask === "all"}
-              onClick={() => setFilterTask("all")}
+              isActive={filteringType === "all"}
+              onClick={() => setFilteringType("all")}
             >
               All
             </StyledFilterButton>
             <StyledFilterButton
-              isActive={filterTask === "active"}
-              onClick={() => setFilterTask("active")}
+              isActive={filteringType === "active"}
+              onClick={() => setFilteringType("active")}
             >
               Active
             </StyledFilterButton>
             <StyledFilterButton
-              isActive={filterTask === "completed"}
-              onClick={() => setFilterTask("completed")}
+              isActive={filteringType === "completed"}
+              onClick={() => setFilteringType("completed")}
             >
               Completed
             </StyledFilterButton>
           </StyledWrapperSelectButtonGroup>
-          <StyledButtonClearCompletedTask onClick={handleClearCompletedTasks}>
+          <StyledButtonClearCompletedTask onClick={clearCompletedTasks}>
             Clear Completed
           </StyledButtonClearCompletedTask>
         </StyledWrapperSelect>
@@ -133,20 +133,20 @@ export const ToDoList = () => {
 
       <StyledWrapperSelectButtonGroupSeparated>
         <StyledFilterButton
-          isActive={filterTask === "all"}
-          onClick={() => setFilterTask("all")}
+          isActive={filteringType === "all"}
+          onClick={() => setFilteringType("all")}
         >
           All
         </StyledFilterButton>
         <StyledFilterButton
-          isActive={filterTask === "active"}
-          onClick={() => setFilterTask("active")}
+          isActive={filteringType === "active"}
+          onClick={() => setFilteringType("active")}
         >
           Active
         </StyledFilterButton>
         <StyledFilterButton
-          isActive={filterTask === "completed"}
-          onClick={() => setFilterTask("completed")}
+          isActive={filteringType === "completed"}
+          onClick={() => setFilteringType("completed")}
         >
           Completed
         </StyledFilterButton>
