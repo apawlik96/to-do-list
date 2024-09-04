@@ -13,9 +13,6 @@ import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import AddIcon from "@mui/icons-material/Add";
 
-const activeTasksFilter = (task) => !task.checked;
-const completedTasksFilter = (task) => task.checked;
-
 const FilterType = {
   ALL: "all",
   ACTIVE: "active",
@@ -26,8 +23,8 @@ const ButtonFilter = ({ filteringType, setFilteringType }) => {
   return (
     <>
       <StyledFilterButton
-        isActive={filteringType === FilterType.ALL}
-        onClick={() => setFilteringType(FilterType.ALL)}
+        isActive={!filteringType}
+        onClick={() => setFilteringType(null)}
       >
         All
       </StyledFilterButton>
@@ -57,7 +54,7 @@ export const ToDoList = () => {
     { id: 6, text: "Complete Todo App on Frontend Mentor", checked: false },
   ]);
   const [newTaskInput, setNewTaskInput] = useState("");
-  const [filteringType, setFilteringType] = useState("all");
+  const [filteringType, setFilteringType] = useState();
 
   const handleTaskMark = (id) => {
     setTasks(
@@ -93,16 +90,17 @@ export const ToDoList = () => {
   };
 
   const clearCompletedTasks = () => {
-    setTasks(tasks.filter(activeTasksFilter));
+    const myFilter = taskFilters[FilterType.ACTIVE];
+    const filteredTasks = tasks.filter(myFilter);
+    setTasks(filteredTasks);
   };
 
   const taskFilters = {
-    [FilterType.ALL]: () => true,
     [FilterType.ACTIVE]: (task) => !task.checked,
     [FilterType.COMPLETED]: (task) => task.checked,
   };
 
-  const filteredTasks = FilterType.ALL
+  const filteredTasks = filteringType
     ? tasks.filter(taskFilters[filteringType])
     : tasks;
 
@@ -134,7 +132,7 @@ export const ToDoList = () => {
 
         <StyledWrapperSelect>
           <StyledParagraph>
-            {tasks.filter(completedTasksFilter).length} items left
+            {tasks.filter(taskFilters[FilterType.COMPLETED]).length} items left
           </StyledParagraph>
           <StyledWrapperSelectButtonGroup>
             <ButtonFilter
