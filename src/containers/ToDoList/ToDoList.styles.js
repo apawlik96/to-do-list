@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
 export const StyledWrapper = styled.div `
-  color: #fff;
+  color: ${({ theme }) => theme.colorToDoList};
   font-weight: 300;
-  background-color: #272a46;
+  background-color: ${({ theme }) => theme.backgroundColorToDoList};
   border-radius: 10px;
 `
 
@@ -26,6 +26,20 @@ export const StyledWrapperSelectButtonGroup = styled.div `
   }
 `
 
+export const StyledFilterButton = styled.button `
+  background-color: transparent;
+  border: none;
+  color: ${({ theme, isActive }) => (isActive ? '#2e9acc' : theme.colorButtonFilter)};
+  font-weight: 500;
+  padding: 0 5px;
+  transition: all 0.3s ease;
+
+  &:hover {
+    color: ${({ theme }) => theme.colorButtonFilterHover};
+    cursor: pointer;
+  }
+`
+
 export const StyledWrapperSelectButtonGroupSeparated = styled.div `
   @media (min-width: 550px) {
     display: none;
@@ -35,32 +49,32 @@ export const StyledWrapperSelectButtonGroupSeparated = styled.div `
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #272a46;
+    background-color: ${({ theme }) => theme.backgroundColorToDoList};
     padding: 25px;
     margin-top: 2rem;
     border-radius: 10px;
   }
-}
-`
 
-export const StyledFilterButton = styled.button `
+  button {
     background-color: transparent;
     border: none;
-    color: ${({ isActive }) => (isActive ? '#2e9acc' : '#494c6b')};
+    color: ${({ theme }) => theme.colorButtonFilter};
     font-weight: 500;
     padding: 0 10px;
     transition: all 0.3s ease;
-
+  
     &:hover {
-      color: #fff;
+      color: ${({ theme }) => theme.colorButtonFilterHover};
       cursor: pointer;
+    }
   }
+}
 `
 
 export const StyledButtonClearCompletedTask = styled.button `
   background-color: transparent;
   border: none;
-  color: #494c6b;
+  color: ${({ theme }) => theme.colorButtonFilter};
   font-weight: 400;
   transition: all 0.3s ease;
 
@@ -71,9 +85,8 @@ export const StyledButtonClearCompletedTask = styled.button `
 `
 
 export const StyledWrapperNewTask = styled.div `
-  color: #fff;
   font-weight: 300;
-  background-color: #272a46;
+  background-color: ${({ theme }) => theme.backgroundColorToDoList};
   border-radius: 10px;
   margin-bottom: 3rem;
   padding: 1.5rem;
@@ -84,7 +97,7 @@ export const StyledWrapperNewTask = styled.div `
   button {
     width: 25px;
     height: 25px;
-    background-color: #272a46;
+    background-color: transparent;
     border-radius: 50%;
     border: 2px solid #494c6b;
     cursor: pointer;
@@ -101,7 +114,7 @@ export const StyledWrapperNewTask = styled.div `
 
     &:hover {
       svg {
-        color: #ffffff;
+        color: ${({ theme }) => theme.colorToDoList};
       }
     }
   }
@@ -114,10 +127,39 @@ export const StyledWrapperNewTask = styled.div `
     font-size: 1.2rem;
     background-color: transparent;
     border: none;
-    color: #fff;
+    color: ${({ theme }) => theme.colorToDoList};
 
     &::placeholder {
-      color: #494c6b; 
+      color: #494c6b;
     }
   }
+`
+
+export const StyledWrapperTitle = styled.div `
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 3rem 0;
+
+  h1 {
+    text-transform: uppercase;
+    color: #fff;
+    letter-spacing: 15px;
+    font-weight: 600;
+    font-size: 3rem;
+  }
+
+  button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+  }
+`
+
+export const StyledWrapperReorderList = styled.div `
+  margin: 3rem 0;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  color: #4e5064;
 `

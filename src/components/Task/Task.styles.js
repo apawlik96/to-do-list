@@ -15,12 +15,11 @@ export const StyledWrapper = styled.div `
     }
   }
 `;
-
 export const StyledParagraph = styled.p `
   flex: 1;
   padding: 0 20px;
   font-size: 1.2rem;
-  color: ${({ isMarked }) => (isMarked ? '#494c6b' : '#fff')};
+  color: ${({ theme, isMarked }) => (isMarked ? theme.colorTaskParagraphMark : theme.colorTaskParagraph)};
   text-decoration: ${({ isMarked }) => (isMarked ? 'line-through' : 'none')};
 
   @media (max-width: 550px) {
@@ -34,7 +33,6 @@ export const StyledInput = styled.input `
   appearance: none;
   width: 20px;
   height: 20px;
-  background-color: #272a46;
   border-radius: 50%;
   border: 2px solid #494c6b;
   cursor: pointer;
@@ -42,6 +40,10 @@ export const StyledInput = styled.input `
   position: relative;
   outline: none;
   transition: all 0.3s ease;
+
+  &:hover {
+    border-color: #2e9acc;
+  }
 
   &:checked {
     background: linear-gradient(to bottom right, rgb(0, 132, 255), violet);
