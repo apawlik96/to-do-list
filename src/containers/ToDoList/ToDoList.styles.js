@@ -24,20 +24,6 @@ export const StyledWrapperSelectButtonGroup = styled.div `
   @media (max-width: 550px) {
     display: none;
   }
-  
-  button {
-    background-color: transparent;
-    border: none;
-    color: #494c6b;
-    font-weight: 500;
-    padding: 0 5px;
-    transition: all 0.3s ease;
-
-    &:hover {
-      color: #2e9acc;
-      cursor: pointer;
-    }
-  }
 `
 
 export const StyledWrapperSelectButtonGroupSeparated = styled.div `
@@ -54,21 +40,21 @@ export const StyledWrapperSelectButtonGroupSeparated = styled.div `
     margin-top: 2rem;
     border-radius: 10px;
   }
+}
+`
 
-  button {
+export const StyledFilterButton = styled.button `
     background-color: transparent;
     border: none;
-    color: #494c6b;
+    color: ${({ isActive }) => (isActive ? '#2e9acc' : '#494c6b')};
     font-weight: 500;
     padding: 0 10px;
     transition: all 0.3s ease;
-  
+
     &:hover {
-      color: #2e9acc;
+      color: #fff;
       cursor: pointer;
-    }
   }
-}
 `
 
 export const StyledButtonClearCompletedTask = styled.button `
