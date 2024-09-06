@@ -14,7 +14,6 @@ import { v4 as uuidv4 } from "uuid";
 import AddIcon from "@mui/icons-material/Add";
 
 const FilterType = {
-  ALL: "all",
   ACTIVE: "active",
   COMPLETED: "completed",
 };
