@@ -60,8 +60,7 @@ export const ToDoList = () => {
   ]);
   const [newTaskInput, setNewTaskInput] = useState("");
   const [filteringType, setFilteringType] = useState();
-  const [isIconChanging, setIsIconChanging] = useState(false);
-  const [isDarkTheme, setIsDarkTheme] = useState(false);
+  const [isDarkTheme, setIsDarkTheme] = useState(true);
 
   const handleTaskMark = (id) => {
     setTasks(
@@ -111,23 +110,20 @@ export const ToDoList = () => {
     ? tasks.filter(taskFilters[filteringType])
     : tasks;
 
-  const handleChangeMode = () => {
-    setIsIconChanging((prevIcon) => !prevIcon);
-    setIsDarkTheme((prevTheme) => !prevTheme);
-    document.body.classList.toggle("light-theme", !isDarkTheme);
+  const handleThemeChange = () => {
+    setIsDarkTheme((prevState) => !prevState);
+    document.body.classList.toggle("light-theme", isDarkTheme);
   };
+
+  const ThemeChangingIcon = isDarkTheme ? LightModeIcon : DarkModeIcon;
 
   return (
     <>
-      <ThemeProvider theme={isDarkTheme ? lightTheme : darkTheme}>
+      <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
         <StyledWrapperTitle>
           <h1>Todo</h1>
-          <button onClick={handleChangeMode}>
-            {isIconChanging ? (
-              <DarkModeIcon style={{ fontSize: 40, color: "#fff" }} />
-            ) : (
-              <LightModeIcon style={{ fontSize: 40, color: "#fff" }} />
-            )}
+          <button onClick={handleThemeChange}>
+            <ThemeChangingIcon style={{ fontSize: 40, color: "#fff" }} />
           </button>
         </StyledWrapperTitle>
         <StyledWrapperNewTask>
