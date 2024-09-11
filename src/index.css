@@ -8,13 +8,25 @@
   font-family: "Poppins", sans-serif;
 }
 
+:root {
+  --bg-color: #1d1935;
+  --bg-image: url("../images/bg-desktop-dark.jpg");
+  --bg-image-min: url("../images/bg-mobile-dark.jpg");
+}
+
+body.light-theme {
+  --bg-color: #ebebeb;
+  --bg-image: url("../images/bg-desktop-light.jpg");
+  --bg-image-min: url("../images/bg-mobile-light.jpg");
+}
+
 body {
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 10px;
-  background-image: url("../images/bg-desktop-dark.jpg");
-  background-color: #1d1935;
+  background-image: var(--bg-image);
+  background-color: var(--bg-color);
   background-repeat: no-repeat;
   background-size: contain;
   background-position: top;
@@ -22,7 +34,7 @@ body {
 
 @media (max-width: 550px) {
   body {
-    background-image: url("../images/bg-mobile-dark.jpg");
+    background-image: var(--bg-image-min);
   }
 }
 

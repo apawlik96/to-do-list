@@ -8,10 +8,16 @@ import {
   StyledButtonClearCompletedTask,
   StyledWrapperNewTask,
   StyledFilterButton,
+  StyledWrapperTitle,
+  StyledWrapperReorderList,
 } from "./ToDoList.styles.js";
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import AddIcon from "@mui/icons-material/Add";
+import LightModeIcon from "@mui/icons-material/LightMode";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
+import { ThemeProvider } from "styled-components";
+import { lightTheme, darkTheme } from "../../theme";
 
 const FilterType = {
   ACTIVE: "active",
@@ -54,6 +60,7 @@ export const ToDoList = () => {
   ]);
   const [newTaskInput, setNewTaskInput] = useState("");
   const [filteringType, setFilteringType] = useState();
+  const [isDarkTheme, setIsDarkTheme] = useState(true);
 
   const handleTaskMark = (id) => {
     setTasks(
@@ -103,54 +110,74 @@ export const ToDoList = () => {
     ? tasks.filter(taskFilters[filteringType])
     : tasks;
 
+  const handleThemeChange = () => {
+    setIsDarkTheme((prevState) => !prevState);
+    document.body.classList.toggle("light-theme", isDarkTheme);
+  };
+
+  const ThemeChangingIcon = isDarkTheme ? LightModeIcon : DarkModeIcon;
+
   return (
     <>
-      <StyledWrapperNewTask>
-        <button onClick={handleAddNewTask}>
-          <AddIcon />
-        </button>
-        <input
-          type="text"
-          placeholder="Create a new todo..."
-          value={newTaskInput}
-          onKeyDown={handleKeyDown}
-          onChange={(e) => setNewTaskInput(e.target.value)}
-        />
-      </StyledWrapperNewTask>
-
-      <StyledWrapper>
-        {filteredTasks.map((task) => (
-          <Task
-            id={task.id}
-            text={task.text}
-            checked={task.checked}
-            onCheck={handleTaskMark}
-            onDelete={handleDeleteTask}
+      <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
+        <StyledWrapperTitle>
+          <h1>Todo</h1>
+          <button onClick={handleThemeChange}>
+            <ThemeChangingIcon style={{ fontSize: 40, color: "#fff" }} />
+          </button>
+        </StyledWrapperTitle>
+        <StyledWrapperNewTask>
+          <button onClick={handleAddNewTask}>
+            <AddIcon />
+          </button>
+          <input
+            type="text"
+            placeholder="Create a new todo..."
+            value={newTaskInput}
+            onKeyDown={handleKeyDown}
+            onChange={(e) => setNewTaskInput(e.target.value)}
           />
-        ))}
+        </StyledWrapperNewTask>
 
-        <StyledWrapperSelect>
-          <StyledParagraph>
-            {tasks.filter(taskFilters[FilterType.COMPLETED]).length} items left
-          </StyledParagraph>
-          <StyledWrapperSelectButtonGroup>
-            <ButtonFilter
-              filteringType={filteringType}
-              setFilteringType={setFilteringType}
+        <StyledWrapper>
+          {filteredTasks.map((task) => (
+            <Task
+              id={task.id}
+              text={task.text}
+              checked={task.checked}
+              onCheck={handleTaskMark}
+              onDelete={handleDeleteTask}
             />
-          </StyledWrapperSelectButtonGroup>
-          <StyledButtonClearCompletedTask onClick={clearCompletedTasks}>
-            Clear Completed
-          </StyledButtonClearCompletedTask>
-        </StyledWrapperSelect>
-      </StyledWrapper>
+          ))}
 
-      <StyledWrapperSelectButtonGroupSeparated>
-        <ButtonFilter
-          filteringType={filteringType}
-          setFilteringType={setFilteringType}
-        />
-      </StyledWrapperSelectButtonGroupSeparated>
+          <StyledWrapperSelect>
+            <StyledParagraph>
+              {tasks.filter(taskFilters[FilterType.COMPLETED]).length} items
+              left
+            </StyledParagraph>
+            <StyledWrapperSelectButtonGroup>
+              <ButtonFilter
+                filteringType={filteringType}
+                setFilteringType={setFilteringType}
+              />
+            </StyledWrapperSelectButtonGroup>
+            <StyledButtonClearCompletedTask onClick={clearCompletedTasks}>
+              Clear Completed
+            </StyledButtonClearCompletedTask>
+          </StyledWrapperSelect>
+        </StyledWrapper>
+
+        <StyledWrapperSelectButtonGroupSeparated>
+          <ButtonFilter
+            filteringType={filteringType}
+            setFilteringType={setFilteringType}
+          />
+        </StyledWrapperSelectButtonGroupSeparated>
+
+        <StyledWrapperReorderList>
+          <p>Drag and drop to reorder list</p>
+        </StyledWrapperReorderList>
+      </ThemeProvider>
     </>
   );
 };
