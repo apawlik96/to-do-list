@@ -11,13 +11,14 @@ import {
   StyledWrapperTitle,
   StyledWrapperReorderList,
 } from "./ToDoList.styles.js";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import AddIcon from "@mui/icons-material/Add";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import { ThemeProvider } from "styled-components";
 import { lightTheme, darkTheme } from "../../theme";
+import cookie from "cookie";
 
 const FilterType = {
   ACTIVE: "active",
@@ -50,28 +51,35 @@ const ButtonFilter = ({ filteringType, setFilteringType }) => {
 };
 
 export const ToDoList = () => {
-  const [tasks, setTasks] = useState([
-    { id: 1, text: "Complete online JavaScript course", checked: false },
-    { id: 2, text: "Jog around the park 3x", checked: false },
-    { id: 3, text: "10 minutes meditation", checked: false },
-    { id: 4, text: "Read for 1 hour", checked: false },
-    { id: 5, text: "Pick up groceries", checked: false },
-    { id: 6, text: "Complete Todo App on Frontend Mentor", checked: false },
-  ]);
   const [newTaskInput, setNewTaskInput] = useState("");
   const [filteringType, setFilteringType] = useState();
   const [isDarkTheme, setIsDarkTheme] = useState(true);
 
+  const saveTasksToCookies = (tasks) => {
+    document.cookie = cookie.serialize("tasks", JSON.stringify(tasks));
+  };
+
+  const [tasks, setTasks] = useState([]);
+
+  useEffect(() => {
+    const cookies = cookie.parse(document.cookie || "");
+    const storedTasks = cookies.tasks;
+    const parsedTasks = JSON.parse(storedTasks);
+    setTasks(parsedTasks);
+  }, []);
+
   const handleTaskMark = (id) => {
-    setTasks(
-      tasks.map((task) =>
-        task.id === id ? { ...task, checked: !task.checked } : task
-      )
+    const taskMark = tasks.map((task) =>
+      task.id === id ? { ...task, checked: !task.checked } : task
     );
+    setTasks(taskMark);
+    saveTasksToCookies(taskMark);
   };
 
   const handleDeleteTask = (id) => {
-    setTasks(tasks.filter((task) => task.id !== id));
+    const deleteTask = tasks.filter((task) => task.id !== id);
+    setTasks(deleteTask);
+    saveTasksToCookies(deleteTask);
   };
 
   const handleAddNewTask = () => {
@@ -85,7 +93,9 @@ export const ToDoList = () => {
       checked: false,
     };
 
-    setTasks(tasks.concat(newTaskObject));
+    const newTasksArray = tasks.concat(newTaskObject);
+    setTasks(newTasksArray);
+    saveTasksToCookies(newTasksArray);
     setNewTaskInput("");
   };
 
@@ -99,6 +109,7 @@ export const ToDoList = () => {
     const myFilter = taskFilters[FilterType.ACTIVE];
     const filteredTasks = tasks.filter(myFilter);
     setTasks(filteredTasks);
+    saveTasksToCookies(filteredTasks);
   };
 
   const taskFilters = {
