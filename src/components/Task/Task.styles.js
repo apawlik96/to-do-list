@@ -65,3 +65,8 @@ export const StyledButton = styled.button `
     visibility: visible;
   }
 `
+
+export const StyledParagraphDate = styled.p `
+  color: #494c6b;
+  font-size: 1rem;
+`

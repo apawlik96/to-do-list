@@ -91,6 +91,11 @@ export const ToDoList = () => {
       id: uuidv4(),
       text: newTaskInput,
       checked: false,
+      dateAdded: new Date().toLocaleDateString("pl-PL", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+      }),
     };
 
     const newTasksArray = tasks.concat(newTaskObject);
@@ -158,6 +163,7 @@ export const ToDoList = () => {
               checked={task.checked}
               onCheck={handleTaskMark}
               onDelete={handleDeleteTask}
+              dateAdded={task.dateAdded}
             />
           ))}
 
