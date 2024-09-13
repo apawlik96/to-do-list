@@ -163,3 +163,23 @@ export const StyledWrapperReorderList = styled.div `
   justify-content: center;
   color: #4e5064;
 `
+
+export const StyledWrapperButtonSortDates = styled.div `
+  border-bottom: 1px solid #494c6b;
+  padding: 15px;
+  display: flex;
+  justify-content: end;
+
+  button{
+    background-color: transparent;
+    border: none;
+    color: ${({ theme }) => theme.colorButtonFilter};
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+
+    &:hover {
+      color: #2e9acc;
+    }
+  }
+`

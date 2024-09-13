@@ -10,6 +10,7 @@ import {
   StyledFilterButton,
   StyledWrapperTitle,
   StyledWrapperReorderList,
+  StyledWrapperButtonSortDates,
 } from "./ToDoList.styles.js";
 import { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
@@ -133,6 +134,18 @@ export const ToDoList = () => {
 
   const ThemeChangingIcon = isDarkTheme ? LightModeIcon : DarkModeIcon;
 
+  const handleSortDates = () => {
+    const sortedTasks = [...tasks].sort((a, b) => {
+      const dateA = new Date(a.dateAdded);
+      const dateB = new Date(b.dateAdded);
+
+      return dateA - dateB;
+    });
+
+    setTasks(sortedTasks);
+    saveTasksToCookies(sortedTasks);
+  };
+
   return (
     <>
       <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
@@ -156,6 +169,9 @@ export const ToDoList = () => {
         </StyledWrapperNewTask>
 
         <StyledWrapper>
+          <StyledWrapperButtonSortDates>
+            <button onClick={handleSortDates}>Sort tasks by date added</button>
+          </StyledWrapperButtonSortDates>
           {filteredTasks.map((task) => (
             <Task
               id={task.id}
