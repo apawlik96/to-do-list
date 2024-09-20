@@ -169,6 +169,7 @@ export const StyledWrapperButtonSortDates = styled.div `
   padding: 15px;
   display: flex;
   justify-content: end;
+  color: ${({ theme }) => theme.colorButtonFilter};
 
   button{
     background-color: transparent;
@@ -179,7 +180,7 @@ export const StyledWrapperButtonSortDates = styled.div `
     transition: all 0.3s ease;
 
     &:hover {
-      color: #2e9acc;
+      color: ${({ theme }) => theme.colorButtonFilterHover};
     }
   }
 `

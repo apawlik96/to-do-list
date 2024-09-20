@@ -55,6 +55,7 @@ export const ToDoList = () => {
   const [newTaskInput, setNewTaskInput] = useState("");
   const [filteringType, setFilteringType] = useState();
   const [isDarkTheme, setIsDarkTheme] = useState(true);
+  const [currentSort, setCurrentSort] = useState("newestTask");
 
   const saveTasksToCookies = (tasks) => {
     document.cookie = cookie.serialize("tasks", JSON.stringify(tasks));
@@ -70,11 +71,11 @@ export const ToDoList = () => {
   }, []);
 
   const handleTaskMark = (id) => {
-    const taskMark = tasks.map((task) =>
+    const newTasksList = tasks.map((task) =>
       task.id === id ? { ...task, checked: !task.checked } : task
     );
-    setTasks(taskMark);
-    saveTasksToCookies(taskMark);
+    setTasks(newTasksList);
+    saveTasksToCookies(newTasksList);
   };
 
   const handleDeleteTask = (id) => {
@@ -92,11 +93,7 @@ export const ToDoList = () => {
       id: uuidv4(),
       text: newTaskInput,
       checked: false,
-      dateAdded: new Date().toLocaleDateString("pl-PL", {
-        day: "2-digit",
-        month: "2-digit",
-        year: "numeric",
-      }),
+      dateAdded: new Date().toISOString().split("T")[0],
     };
 
     const newTasksArray = tasks.concat(newTaskObject);
@@ -134,16 +131,15 @@ export const ToDoList = () => {
 
   const ThemeChangingIcon = isDarkTheme ? LightModeIcon : DarkModeIcon;
 
-  const handleSortDates = () => {
-    const sortedTasks = [...tasks].sort((a, b) => {
-      const dateA = new Date(a.dateAdded);
-      const dateB = new Date(b.dateAdded);
+  const sortDates = {
+    oldestTask: (a, b) => new Date(a.dateAdded) - new Date(b.dateAdded),
+    newestTask: (a, b) => new Date(b.dateAdded) - new Date(a.dateAdded),
+  };
 
-      return dateA - dateB;
-    });
+  const sortedAndFilteredTasks = filteredTasks.sort(sortDates[currentSort]);
 
-    setTasks(sortedTasks);
-    saveTasksToCookies(sortedTasks);
+  const handleTaskSorting = () => {
+    setCurrentSort(currentSort === "newestTask" ? "oldestTask" : "newestTask");
   };
 
   return (
@@ -170,9 +166,14 @@ export const ToDoList = () => {
 
         <StyledWrapper>
           <StyledWrapperButtonSortDates>
-            <button onClick={handleSortDates}>Sort tasks by date added</button>
+            <p>
+              Sort by{" "}
+              <button onClick={handleTaskSorting}>
+                {currentSort === "newestTask" ? "newest" : "oldest"}
+              </button>
+            </p>
           </StyledWrapperButtonSortDates>
-          {filteredTasks.map((task) => (
+          {sortedAndFilteredTasks.map((task) => (
             <Task
               id={task.id}
               text={task.text}
