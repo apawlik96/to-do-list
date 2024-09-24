@@ -184,3 +184,45 @@ export const StyledWrapperButtonSortDates = styled.div `
     }
   }
 `
+
+export const StyledWrapperCompletedTasks = styled.div `
+  color: ${({ theme }) => theme.colorToDoList};
+  font-weight: 300;
+  background-color: ${({ theme }) => theme.backgroundColorToDoList};
+  border-radius: 10px;
+  margin-bottom: 3rem;
+  padding: 1.5rem;
+
+  span {
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+  }
+
+  .progress-bar {
+    position: relative;
+    width: 100%;
+  }
+
+  progress {
+    margin-top: 1rem;
+    height: 2rem;
+    border: 1px solid ${({ theme }) => theme.colorToDoList};
+    border-radius: 15px;
+  }
+
+  progress::-webkit-progress-bar {
+    background-color: transparent;
+  }
+
+  progress::-webkit-progress-value {
+    background: linear-gradient(to bottom right, rgb(0, 132, 255), violet);
+    border-radius: 15px;
+  }
+
+  .progress-number {
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+`

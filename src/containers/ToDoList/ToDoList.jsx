@@ -11,6 +11,7 @@ import {
   StyledWrapperTitle,
   StyledWrapperReorderList,
   StyledWrapperButtonSortDates,
+  StyledWrapperCompletedTasks,
 } from "./ToDoList.styles.js";
 import { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
@@ -151,6 +152,26 @@ export const ToDoList = () => {
             <ThemeChangingIcon style={{ fontSize: 40, color: "#fff" }} />
           </button>
         </StyledWrapperTitle>
+
+        <StyledWrapperCompletedTasks>
+          <span>Completed tasks</span>
+          <div className="progress-bar">
+            <progress
+              value={tasks.filter(taskFilters[FilterType.COMPLETED]).length}
+              max={tasks.length}
+              style={{ width: "100%" }}
+            />
+            <div className="progress-number">
+              {Math.round(
+                (tasks.length > 0 &&
+                  tasks.filter(taskFilters[FilterType.COMPLETED]).length /
+                    tasks.length) * 100
+              )}
+              %
+            </div>
+          </div>
+        </StyledWrapperCompletedTasks>
+
         <StyledWrapperNewTask>
           <button onClick={handleAddNewTask}>
             <AddIcon />
