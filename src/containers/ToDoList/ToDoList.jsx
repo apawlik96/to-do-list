@@ -21,6 +21,7 @@ import DarkModeIcon from "@mui/icons-material/DarkMode";
 import { ThemeProvider } from "styled-components";
 import { lightTheme, darkTheme } from "../../theme";
 import cookie from "cookie";
+import { Reorder } from "framer-motion";
 
 const FilterType = {
   ACTIVE: "active",
@@ -72,9 +73,12 @@ export const ToDoList = () => {
   }, []);
 
   const handleTaskMark = (id) => {
-    const newTasksList = tasks.map((task) =>
+    const updatedTasks = tasks.map((task) =>
       task.id === id ? { ...task, checked: !task.checked } : task
     );
+
+    const newTasksList = updatedTasks.sort((a, b) => a.checked - b.checked);
+
     setTasks(newTasksList);
     saveTasksToCookies(newTasksList);
   };
@@ -194,16 +198,24 @@ export const ToDoList = () => {
               </button>
             </p>
           </StyledWrapperButtonSortDates>
-          {sortedAndFilteredTasks.map((task) => (
-            <Task
-              id={task.id}
-              text={task.text}
-              checked={task.checked}
-              onCheck={handleTaskMark}
-              onDelete={handleDeleteTask}
-              dateAdded={task.dateAdded}
-            />
-          ))}
+          <Reorder.Group
+            values={tasks}
+            onReorder={(newTasks) => setTasks(newTasks)}
+            style={{ listStyleType: "none" }}
+          >
+            {sortedAndFilteredTasks.map((task) => (
+              <Reorder.Item value={task} key={task.id}>
+                <Task
+                  id={task.id}
+                  text={task.text}
+                  checked={task.checked}
+                  onCheck={handleTaskMark}
+                  onDelete={handleDeleteTask}
+                  dateAdded={task.dateAdded}
+                />
+              </Reorder.Item>
+            ))}
+          </Reorder.Group>
 
           <StyledWrapperSelect>
             <StyledParagraph>
