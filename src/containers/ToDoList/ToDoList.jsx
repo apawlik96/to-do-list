@@ -10,14 +10,16 @@ import {
   StyledFilterButton,
   StyledWrapperTitle,
   StyledWrapperReorderList,
+  StyledWrapperButtonSortDates,
 } from "./ToDoList.styles.js";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import AddIcon from "@mui/icons-material/Add";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import { ThemeProvider } from "styled-components";
 import { lightTheme, darkTheme } from "../../theme";
+import cookie from "cookie";
 
 const FilterType = {
   ACTIVE: "active",
@@ -50,28 +52,36 @@ const ButtonFilter = ({ filteringType, setFilteringType }) => {
 };
 
 export const ToDoList = () => {
-  const [tasks, setTasks] = useState([
-    { id: 1, text: "Complete online JavaScript course", checked: false },
-    { id: 2, text: "Jog around the park 3x", checked: false },
-    { id: 3, text: "10 minutes meditation", checked: false },
-    { id: 4, text: "Read for 1 hour", checked: false },
-    { id: 5, text: "Pick up groceries", checked: false },
-    { id: 6, text: "Complete Todo App on Frontend Mentor", checked: false },
-  ]);
   const [newTaskInput, setNewTaskInput] = useState("");
   const [filteringType, setFilteringType] = useState();
   const [isDarkTheme, setIsDarkTheme] = useState(true);
+  const [currentSort, setCurrentSort] = useState("newestTask");
+
+  const saveTasksToCookies = (tasks) => {
+    document.cookie = cookie.serialize("tasks", JSON.stringify(tasks));
+  };
+
+  const [tasks, setTasks] = useState([]);
+
+  useEffect(() => {
+    const cookies = cookie.parse(document.cookie || "");
+    const storedTasks = cookies.tasks;
+    const parsedTasks = JSON.parse(storedTasks);
+    setTasks(parsedTasks);
+  }, []);
 
   const handleTaskMark = (id) => {
-    setTasks(
-      tasks.map((task) =>
-        task.id === id ? { ...task, checked: !task.checked } : task
-      )
+    const newTasksList = tasks.map((task) =>
+      task.id === id ? { ...task, checked: !task.checked } : task
     );
+    setTasks(newTasksList);
+    saveTasksToCookies(newTasksList);
   };
 
   const handleDeleteTask = (id) => {
-    setTasks(tasks.filter((task) => task.id !== id));
+    const newTasksList = tasks.filter((task) => task.id !== id);
+    setTasks(newTasksList);
+    saveTasksToCookies(newTasksList);
   };
 
   const handleAddNewTask = () => {
@@ -83,9 +93,12 @@ export const ToDoList = () => {
       id: uuidv4(),
       text: newTaskInput,
       checked: false,
+      dateAdded: new Date().toISOString().split("T")[0],
     };
 
-    setTasks(tasks.concat(newTaskObject));
+    const newTasksArray = tasks.concat(newTaskObject);
+    setTasks(newTasksArray);
+    saveTasksToCookies(newTasksArray);
     setNewTaskInput("");
   };
 
@@ -99,6 +112,7 @@ export const ToDoList = () => {
     const myFilter = taskFilters[FilterType.ACTIVE];
     const filteredTasks = tasks.filter(myFilter);
     setTasks(filteredTasks);
+    saveTasksToCookies(filteredTasks);
   };
 
   const taskFilters = {
@@ -116,6 +130,17 @@ export const ToDoList = () => {
   };
 
   const ThemeChangingIcon = isDarkTheme ? LightModeIcon : DarkModeIcon;
+
+  const sortDates = {
+    oldestTask: (a, b) => new Date(a.dateAdded) - new Date(b.dateAdded),
+    newestTask: (a, b) => new Date(b.dateAdded) - new Date(a.dateAdded),
+  };
+
+  const sortedAndFilteredTasks = filteredTasks.sort(sortDates[currentSort]);
+
+  const handleTaskSorting = () => {
+    setCurrentSort(currentSort === "newestTask" ? "oldestTask" : "newestTask");
+  };
 
   return (
     <>
@@ -140,13 +165,22 @@ export const ToDoList = () => {
         </StyledWrapperNewTask>
 
         <StyledWrapper>
-          {filteredTasks.map((task) => (
+          <StyledWrapperButtonSortDates>
+            <p>
+              Sort by{" "}
+              <button onClick={handleTaskSorting}>
+                {currentSort === "newestTask" ? "newest" : "oldest"}
+              </button>
+            </p>
+          </StyledWrapperButtonSortDates>
+          {sortedAndFilteredTasks.map((task) => (
             <Task
               id={task.id}
               text={task.text}
               checked={task.checked}
               onCheck={handleTaskMark}
               onDelete={handleDeleteTask}
+              dateAdded={task.dateAdded}
             />
           ))}
 

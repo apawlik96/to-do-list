@@ -4,9 +4,10 @@ import {
   StyledParagraph,
   StyledInput,
   StyledButton,
+  StyledParagraphDate,
 } from "./Task.styles.js";
 
-export const Task = ({ id, text, checked, onCheck, onDelete }) => {
+export const Task = ({ id, text, checked, onCheck, onDelete, dateAdded }) => {
   return (
     <>
       <StyledWrapper>
@@ -16,6 +17,7 @@ export const Task = ({ id, text, checked, onCheck, onDelete }) => {
           onChange={() => onCheck(id)}
         />
         <StyledParagraph isMarked={checked}>{text}</StyledParagraph>
+        <StyledParagraphDate>{dateAdded}</StyledParagraphDate>
         <StyledButton onClick={() => onDelete(id)}>
           <CloseIcon />
         </StyledButton>
