@@ -22,6 +22,9 @@ import { ThemeProvider } from "styled-components";
 import { lightTheme, darkTheme } from "../../theme";
 import cookie from "cookie";
 import { Reorder } from "framer-motion";
+import LinearProgress from "@mui/material/LinearProgress";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 
 const FilterType = {
   ACTIVE: "active",
@@ -166,20 +169,34 @@ export const ToDoList = () => {
 
         <StyledWrapperCompletedTasks>
           <span>Completed tasks</span>
-          <div className="progress-bar">
-            <progress
-              value={numberOfCompletedTasks}
-              max={totalTasksCount}
-              style={{ width: "100%" }}
-            />
-            <div className="progress-number">
-              {Math.round(
-                (totalTasksCount > 0 &&
-                  numberOfCompletedTasks / totalTasksCount) * 100
-              )}
-              %
-            </div>
-          </div>
+
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            <Box sx={{ width: "100%", mr: 1 }}>
+              <LinearProgress
+                variant="determinate"
+                value={
+                  totalTasksCount > 0
+                    ? (numberOfCompletedTasks / totalTasksCount) * 100
+                    : 0
+                }
+                sx={{
+                  width: "100%",
+                  "& .MuiLinearProgress-bar": {
+                    backgroundColor: "#2e9acc",
+                  },
+                  backgroundColor: "#b4b4b8",
+                }}
+              />
+            </Box>
+            <Box>
+              <Typography>
+                {`${Math.round(
+                  (totalTasksCount > 0 &&
+                    numberOfCompletedTasks / totalTasksCount) * 100
+                )}%`}
+              </Typography>
+            </Box>
+          </Box>
         </StyledWrapperCompletedTasks>
 
         <StyledWrapperNewTask>
