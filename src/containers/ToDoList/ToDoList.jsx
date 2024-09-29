@@ -73,11 +73,9 @@ export const ToDoList = () => {
   }, []);
 
   const handleTaskMark = (id) => {
-    const updatedTasks = tasks.map((task) =>
+    const newTasksList = tasks.map((task) =>
       task.id === id ? { ...task, checked: !task.checked } : task
     );
-
-    const newTasksList = updatedTasks.sort((a, b) => a.checked - b.checked);
 
     setTasks(newTasksList);
     saveTasksToCookies(newTasksList);
@@ -141,7 +139,7 @@ export const ToDoList = () => {
     newestTask: (a, b) => new Date(b.dateAdded) - new Date(a.dateAdded),
   };
 
-  const sortedAndFilteredTasks = filteredTasks.sort(sortDates[currentSort]);
+  const sortedByDate = filteredTasks.sort(sortDates[currentSort]);
 
   const handleTaskSorting = () => {
     setCurrentSort(currentSort === "newestTask" ? "oldestTask" : "newestTask");
@@ -151,6 +149,10 @@ export const ToDoList = () => {
     taskFilters[FilterType.COMPLETED]
   ).length;
   const totalTasksCount = tasks.length;
+
+  const sortedAndFilteredTasks = sortedByDate.sort(
+    (a, b) => a.checked - b.checked
+  );
 
   return (
     <>
