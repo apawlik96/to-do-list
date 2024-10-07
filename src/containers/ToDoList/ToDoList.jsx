@@ -11,6 +11,10 @@ import {
   StyledWrapperTitle,
   StyledWrapperReorderList,
   StyledWrapperButtonSortDates,
+  StyledWrapperCompletedTasks,
+  StyledWrapperBox,
+  StyledLinearProgressBox,
+  StyledLinearProgress,
 } from "./ToDoList.styles.js";
 import { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
@@ -20,6 +24,9 @@ import DarkModeIcon from "@mui/icons-material/DarkMode";
 import { ThemeProvider } from "styled-components";
 import { lightTheme, darkTheme } from "../../theme";
 import cookie from "cookie";
+import { Reorder } from "framer-motion";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 
 const FilterType = {
   ACTIVE: "active",
@@ -74,6 +81,7 @@ export const ToDoList = () => {
     const newTasksList = tasks.map((task) =>
       task.id === id ? { ...task, checked: !task.checked } : task
     );
+
     setTasks(newTasksList);
     saveTasksToCookies(newTasksList);
   };
@@ -136,11 +144,20 @@ export const ToDoList = () => {
     newestTask: (a, b) => new Date(b.dateAdded) - new Date(a.dateAdded),
   };
 
-  const sortedAndFilteredTasks = filteredTasks.sort(sortDates[currentSort]);
+  const sortedByDate = filteredTasks.sort(sortDates[currentSort]);
 
   const handleTaskSorting = () => {
     setCurrentSort(currentSort === "newestTask" ? "oldestTask" : "newestTask");
   };
+
+  const numberOfCompletedTasks = tasks.filter(
+    taskFilters[FilterType.COMPLETED]
+  ).length;
+  const totalTasksCount = tasks.length;
+
+  const sortedAndFilteredTasks = sortedByDate.sort(
+    (a, b) => a.checked - b.checked
+  );
 
   return (
     <>
@@ -151,6 +168,33 @@ export const ToDoList = () => {
             <ThemeChangingIcon style={{ fontSize: 40, color: "#fff" }} />
           </button>
         </StyledWrapperTitle>
+
+        <StyledWrapperCompletedTasks>
+          <span>Completed tasks</span>
+
+          <StyledWrapperBox>
+            <StyledLinearProgressBox>
+              <StyledLinearProgress
+                variant="determinate"
+                value={
+                  totalTasksCount > 0
+                    ? (numberOfCompletedTasks / totalTasksCount) * 100
+                    : 0
+                }
+              />
+            </StyledLinearProgressBox>
+            <Box>
+              <Typography>
+                {Math.round(
+                  (totalTasksCount > 0 &&
+                    numberOfCompletedTasks / totalTasksCount) * 100
+                )}
+                %
+              </Typography>
+            </Box>
+          </StyledWrapperBox>
+        </StyledWrapperCompletedTasks>
+
         <StyledWrapperNewTask>
           <button onClick={handleAddNewTask}>
             <AddIcon />
@@ -173,16 +217,24 @@ export const ToDoList = () => {
               </button>
             </p>
           </StyledWrapperButtonSortDates>
-          {sortedAndFilteredTasks.map((task) => (
-            <Task
-              id={task.id}
-              text={task.text}
-              checked={task.checked}
-              onCheck={handleTaskMark}
-              onDelete={handleDeleteTask}
-              dateAdded={task.dateAdded}
-            />
-          ))}
+          <Reorder.Group
+            values={tasks}
+            onReorder={(newTasks) => setTasks(newTasks)}
+            style={{ listStyleType: "none" }}
+          >
+            {sortedAndFilteredTasks.map((task) => (
+              <Reorder.Item value={task} key={task.id}>
+                <Task
+                  id={task.id}
+                  text={task.text}
+                  checked={task.checked}
+                  onCheck={handleTaskMark}
+                  onDelete={handleDeleteTask}
+                  dateAdded={task.dateAdded}
+                />
+              </Reorder.Item>
+            ))}
+          </Reorder.Group>
 
           <StyledWrapperSelect>
             <StyledParagraph>

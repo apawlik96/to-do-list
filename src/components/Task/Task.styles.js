@@ -7,6 +7,7 @@ export const StyledWrapper = styled.div `
   border-bottom: 1px solid #494c6b;
   padding: 25px;
   font-size: 1.2rem;
+  background-color: ${({ theme }) => theme.backgroundColorToDoList};
   transition: all 0.3s ease;
 
   &:hover {
