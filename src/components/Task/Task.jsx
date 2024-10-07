@@ -5,9 +5,27 @@ import {
   StyledInput,
   StyledButton,
   StyledParagraphDate,
+  StyledInputText,
 } from "./Task.styles.js";
+import { useState } from "react";
 
-export const Task = ({ id, text, checked, onCheck, onDelete, dateAdded }) => {
+export const Task = ({
+  id,
+  text,
+  checked,
+  onCheck,
+  onDelete,
+  dateAdded,
+  onEdit,
+}) => {
+  const [isEditing, setIsEditing] = useState(false);
+  const [newInputText, setNewInputText] = useState(text);
+
+  const handleEditInputText = () => {
+    setIsEditing(false);
+    onEdit(id, newInputText);
+  };
+
   return (
     <>
       <StyledWrapper>
@@ -16,7 +34,26 @@ export const Task = ({ id, text, checked, onCheck, onDelete, dateAdded }) => {
           checked={checked}
           onChange={() => onCheck(id)}
         />
-        <StyledParagraph isMarked={checked}>{text}</StyledParagraph>
+        {isEditing ? (
+          <StyledInputText
+            type="text"
+            value={newInputText}
+            onChange={(e) => setNewInputText(e.target.value)}
+            onBlur={handleEditInputText}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                handleEditInputText();
+              }
+            }}
+          />
+        ) : (
+          <StyledParagraph
+            isMarked={checked}
+            onDoubleClick={() => setIsEditing(true)}
+          >
+            {text}
+          </StyledParagraph>
+        )}
         <StyledParagraphDate>{dateAdded}</StyledParagraphDate>
         <StyledButton onClick={() => onDelete(id)}>
           <CloseIcon />

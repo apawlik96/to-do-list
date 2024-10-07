@@ -28,6 +28,10 @@ export const StyledParagraph = styled.p `
   }
 `;
 
+export const StyledInputText = styled.input `
+  color: #2e9acc;
+`
+
 export const StyledInput = styled.input `
   flex: 0;
   padding: 10px; 

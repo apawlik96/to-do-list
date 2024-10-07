@@ -159,6 +159,14 @@ export const ToDoList = () => {
     (a, b) => a.checked - b.checked
   );
 
+  const handleEditTask = (id, newText) => {
+    setTasks((prevTasks) =>
+      prevTasks.map((task) =>
+        task.id === id ? { ...task, text: newText } : task
+      )
+    );
+  };
+
   return (
     <>
       <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
@@ -231,6 +239,7 @@ export const ToDoList = () => {
                   onCheck={handleTaskMark}
                   onDelete={handleDeleteTask}
                   dateAdded={task.dateAdded}
+                  onEdit={handleEditTask}
                 />
               </Reorder.Item>
             ))}
