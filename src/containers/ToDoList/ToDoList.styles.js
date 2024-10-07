@@ -1,4 +1,8 @@
 import styled from 'styled-components';
+import {
+  Box,
+  LinearProgress
+} from '@mui/material';
 
 export const StyledWrapper = styled.div `
   color: ${({ theme }) => theme.colorToDoList};
@@ -197,4 +201,26 @@ export const StyledWrapperCompletedTasks = styled.div `
     font-size: 1.2rem;
     letter-spacing: 1px;
   }
+`
+
+export const StyledWrapperBox = styled(Box)
+`
+  display: flex;
+  align-items: center;
+`;
+
+export const StyledLinearProgressBox = styled(Box)
+`
+  width: 100%;
+  margin-right: 8px;
+`;
+
+export const StyledLinearProgress = styled(LinearProgress)
+`
+width: 100%;
+background-color: #b4b4b8 !important;
+
+& .MuiLinearProgress-bar {
+  background-color: #2e9acc;
+}
 `

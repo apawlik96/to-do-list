@@ -12,6 +12,9 @@ import {
   StyledWrapperReorderList,
   StyledWrapperButtonSortDates,
   StyledWrapperCompletedTasks,
+  StyledWrapperBox,
+  StyledLinearProgressBox,
+  StyledLinearProgress,
 } from "./ToDoList.styles.js";
 import { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
@@ -22,7 +25,6 @@ import { ThemeProvider } from "styled-components";
 import { lightTheme, darkTheme } from "../../theme";
 import cookie from "cookie";
 import { Reorder } from "framer-motion";
-import LinearProgress from "@mui/material/LinearProgress";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
@@ -170,33 +172,27 @@ export const ToDoList = () => {
         <StyledWrapperCompletedTasks>
           <span>Completed tasks</span>
 
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            <Box sx={{ width: "100%", mr: 1 }}>
-              <LinearProgress
+          <StyledWrapperBox>
+            <StyledLinearProgressBox>
+              <StyledLinearProgress
                 variant="determinate"
                 value={
                   totalTasksCount > 0
                     ? (numberOfCompletedTasks / totalTasksCount) * 100
                     : 0
                 }
-                sx={{
-                  width: "100%",
-                  "& .MuiLinearProgress-bar": {
-                    backgroundColor: "#2e9acc",
-                  },
-                  backgroundColor: "#b4b4b8",
-                }}
               />
-            </Box>
+            </StyledLinearProgressBox>
             <Box>
               <Typography>
-                {`${Math.round(
+                {Math.round(
                   (totalTasksCount > 0 &&
                     numberOfCompletedTasks / totalTasksCount) * 100
-                )}%`}
+                )}
+                %
               </Typography>
             </Box>
-          </Box>
+          </StyledWrapperBox>
         </StyledWrapperCompletedTasks>
 
         <StyledWrapperNewTask>
