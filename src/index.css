@@ -12,12 +12,16 @@
   --bg-color: #1d1935;
   --bg-image: url("../images/bg-desktop-dark.jpg");
   --bg-image-min: url("../images/bg-mobile-dark.jpg");
+  --background-color-toast: #272a46;
+  --color-text-toast: #fff;
 }
 
 body.light-theme {
   --bg-color: #ebebeb;
   --bg-image: url("../images/bg-desktop-light.jpg");
   --bg-image-min: url("../images/bg-mobile-light.jpg");
+  --background-color-toast: #fff;
+  --color-text-toast: #333;
 }
 
 body {
@@ -40,4 +44,9 @@ body {
 
 #root {
   width: 700px;
+}
+
+.Toastify__toast.custom-toast {
+  background-color: var(--background-color-toast);
+  color: var(--color-text-toast);
 }
