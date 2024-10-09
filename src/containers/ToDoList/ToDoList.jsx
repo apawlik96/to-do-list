@@ -27,6 +27,8 @@ import cookie from "cookie";
 import { Reorder } from "framer-motion";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from "react-toastify";
 
 const FilterType = {
   ACTIVE: "active",
@@ -82,12 +84,19 @@ export const ToDoList = () => {
       task.id === id ? { ...task, checked: !task.checked } : task
     );
 
+    toast.success("Task completed!", {
+      className: "custom-toast",
+    });
+
     setTasks(newTasksList);
     saveTasksToCookies(newTasksList);
   };
 
   const handleDeleteTask = (id) => {
     const newTasksList = tasks.filter((task) => task.id !== id);
+    toast.error("Task deleted!", {
+      className: "custom-toast",
+    });
     setTasks(newTasksList);
     saveTasksToCookies(newTasksList);
   };
@@ -105,6 +114,9 @@ export const ToDoList = () => {
     };
 
     const newTasksArray = tasks.concat(newTaskObject);
+    toast.success("Task added successfully!", {
+      className: "custom-toast",
+    });
     setTasks(newTasksArray);
     saveTasksToCookies(newTasksArray);
     setNewTaskInput("");
@@ -119,6 +131,9 @@ export const ToDoList = () => {
   const clearCompletedTasks = () => {
     const myFilter = taskFilters[FilterType.ACTIVE];
     const filteredTasks = tasks.filter(myFilter);
+    toast.warn("Completed tasks cleared!", {
+      className: "custom-toast",
+    });
     setTasks(filteredTasks);
     saveTasksToCookies(filteredTasks);
   };
@@ -135,6 +150,9 @@ export const ToDoList = () => {
   const handleThemeChange = () => {
     setIsDarkTheme((prevState) => !prevState);
     document.body.classList.toggle("light-theme", isDarkTheme);
+    toast.info("Theme changed!", {
+      className: "custom-toast",
+    });
   };
 
   const ThemeChangingIcon = isDarkTheme ? LightModeIcon : DarkModeIcon;
@@ -165,6 +183,9 @@ export const ToDoList = () => {
         task.id === id ? { ...task, text: newText } : task
       )
     );
+    toast.success("Task updated!", {
+      className: "custom-toast",
+    });
   };
 
   return (
@@ -272,6 +293,7 @@ export const ToDoList = () => {
         <StyledWrapperReorderList>
           <p>Drag and drop to reorder list</p>
         </StyledWrapperReorderList>
+        <ToastContainer />
       </ThemeProvider>
     </>
   );
