@@ -29,6 +29,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
+import { WeatherWidget } from "../../components/Weather Widget/WeatherWidget.jsx";
 
 const FilterType = {
   ACTIVE: "active",
@@ -197,6 +198,8 @@ export const ToDoList = () => {
             <ThemeChangingIcon style={{ fontSize: 40, color: "#fff" }} />
           </button>
         </StyledWrapperTitle>
+
+        <WeatherWidget />
 
         <StyledWrapperCompletedTasks>
           <span>Completed tasks</span>
