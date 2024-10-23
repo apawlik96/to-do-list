@@ -43,11 +43,6 @@ export const StyledWrapper = styled.div `
 }
 `;
 
-export const StyledTemperatureUnitParagraph = styled.span`
-cursor: pointer;
-color: ${({ theme, isActive }) => (isActive ? theme.colorToDoList : theme.colorButtonFilter)};
-`;
-
 export const StyledWrapperWeather = styled.div `
   text-align: center;
   margin-right: 1rem;

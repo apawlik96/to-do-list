@@ -29,7 +29,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
-import { WeatherWidget } from "../../components/Weather Widget/WeatherWidget.jsx";
+import { WeatherWidget } from "../../components/WeatherWidget/WeatherWidget.jsx";
 
 const FilterType = {
   ACTIVE: "active",
