@@ -1,7 +1,7 @@
 import { StyledWrapper, StyledWrapperWeather } from "./WeatherWidget.styles";
 import { useState, useEffect } from "react";
-import GetLocation from "../../services/location";
-import GetWeather from "../../api/weather";
+import getLocation from "../../services/location";
+import getWeather from "../../api/weather";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import { Switch, FormControlLabel } from "@mui/material";
@@ -44,15 +44,18 @@ export const WeatherWidget = () => {
   const [weatherData, setWeatherData] = useState(null);
   const [error, setError] = useState(null);
   const [temperatureUnit, setTemperatureUnit] = useState("C");
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchWeather = async () => {
       try {
-        const location = await GetLocation();
-        const weather = await GetWeather(location);
+        const location = await getLocation();
+        const weather = await getWeather(location);
         setWeatherData(weather);
       } catch (err) {
         setError(err.message);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -72,7 +75,7 @@ export const WeatherWidget = () => {
     }
   };
 
-  const weather = getWeatherImage();
+  const weatherImage = getWeatherImage();
 
   const convertTemperatureFromCToF = (temperature) => {
     return temperatureUnit === "C" ? temperature : (temperature * 9) / 5 + 32;
@@ -82,7 +85,7 @@ export const WeatherWidget = () => {
     setTemperatureUnit((prevUnit) => (prevUnit === "C" ? "F" : "C"));
   };
 
-  if (!weatherData && !error) {
+  if (isLoading) {
     return (
       <Box sx={{ display: "flex", justifyContent: "center" }}>
         <CircularProgress />
@@ -100,10 +103,10 @@ export const WeatherWidget = () => {
 
       <StyledWrapperWeather>
         <img
-          src={weather.image}
+          src={weatherImage.image}
           height="80"
           width="80"
-          alt={weather.description}
+          alt={weatherImage.description}
         />
         <p>
           {convertTemperatureFromCToF(weatherData.temperature).toFixed(1)}°

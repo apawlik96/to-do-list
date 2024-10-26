@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const GetWeather = (location) => {
+const getWeather = (location) => {
     const { latitude, longitude } = location;
 
     const currentParams = "temperature_2m,relative_humidity_2m,precipitation,snowfall,wind_speed_10m";
@@ -24,4 +24,4 @@ export const GetWeather = (location) => {
     });
 };
 
-export default GetWeather;
+export default getWeather;
