@@ -77,8 +77,12 @@ export const WeatherWidget = () => {
 
   const weatherImage = getWeatherImage();
 
-  const convertTemperatureFromCToF = (temperature) => {
-    return temperatureUnit === "C" ? temperature : (temperature * 9) / 5 + 32;
+  const getTemperatureInF = (temperature) => (temperature * 9) / 5 + 32;
+
+  const getTemperatureInCurrentUnits = (temperature) => {
+    return temperatureUnit === "C"
+      ? temperature
+      : getTemperatureInF(temperature);
   };
 
   const toggleTemperatureUnit = () => {
@@ -109,7 +113,7 @@ export const WeatherWidget = () => {
           alt={weatherImage.description}
         />
         <p>
-          {convertTemperatureFromCToF(weatherData.temperature).toFixed(1)}°
+          {getTemperatureInCurrentUnits(weatherData.temperature).toFixed(1)}°
           {temperatureUnit}
         </p>
         <FormControlLabel
