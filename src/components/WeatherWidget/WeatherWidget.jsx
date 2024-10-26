@@ -6,36 +6,30 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import { Switch, FormControlLabel } from "@mui/material";
 
-const rainyImage = process.env.PUBLIC_URL + "/images/rainy-day.png";
-const sunnyImage = process.env.PUBLIC_URL + "/images/sun.png";
-const snowyImage = process.env.PUBLIC_URL + "/images/snow.png";
-const windImage = process.env.PUBLIC_URL + "/images/wind.png";
-const cloudImage = process.env.PUBLIC_URL + "/images/cloud.png";
-
 const weatherImages = {
   rainy: {
     condition: (data) => data.precipitation_probability > 50,
-    image: rainyImage,
+    image: "rainy-day",
     description: "Rainy image",
   },
   snowy: {
     condition: (data) => data.snowfall > 0,
-    image: snowyImage,
+    image: "snow",
     description: "Snowy image",
   },
   windy: {
     condition: (data) => data.windspeed > 20,
-    image: windImage,
+    image: "wind",
     description: "Windy image",
   },
   sunny: {
     condition: (data) => data.temperature > 20,
-    image: sunnyImage,
+    image: "sun",
     description: "Sunny image",
   },
   cloud: {
     condition: () => true,
-    image: cloudImage,
+    image: "cloud",
     description: "Cloudy image",
   },
 };
@@ -63,12 +57,16 @@ export const WeatherWidget = () => {
   }, []);
 
   const getWeatherImage = () => {
-    if (!weatherData)
-      return { image: cloudImage, description: "Cloudy weather" };
+    if (!weatherData) {
+      return {
+        image: `${process.env.PUBLIC_URL}/images/cloud.png`,
+        description: "Cloudy weather",
+      };
+    }
     for (const key in weatherImages) {
       if (weatherImages[key].condition(weatherData)) {
         return {
-          image: weatherImages[key].image,
+          image: `${process.env.PUBLIC_URL}/images/${weatherImages[key].image}.png`,
           description: weatherImages[key].description,
         };
       }
