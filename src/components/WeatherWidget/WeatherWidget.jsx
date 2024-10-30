@@ -58,19 +58,23 @@ export const WeatherWidget = () => {
 
   const getWeatherImage = () => {
     if (!weatherData) {
-      return {
-        image: `${process.env.PUBLIC_URL}/images/cloud.png`,
-        description: "Cloudy weather",
-      };
+      console.error("Failed to get weather info.");
+      return null;
     }
-    for (const key in weatherImages) {
-      if (weatherImages[key].condition(weatherData)) {
-        return {
-          image: `${process.env.PUBLIC_URL}/images/${weatherImages[key].image}.png`,
-          description: weatherImages[key].description,
-        };
-      }
-    }
+
+    const weatherImage = Object.keys(weatherImages)
+      .map((key) => {
+        if (weatherImages[key].condition(weatherData)) {
+          return {
+            image: `${process.env.PUBLIC_URL}/images/${weatherImages[key].image}.png`,
+            description: weatherImages[key].description,
+          };
+        }
+        return null;
+      })
+      .find((item) => item !== null);
+
+    return weatherImage;
   };
 
   const weatherImage = getWeatherImage();
