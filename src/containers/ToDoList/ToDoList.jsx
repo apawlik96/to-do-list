@@ -76,7 +76,7 @@ export const ToDoList = () => {
   useEffect(() => {
     const cookies = cookie.parse(document.cookie || "");
     const storedTasks = cookies.tasks;
-    const parsedTasks = JSON.parse(storedTasks);
+    const parsedTasks = storedTasks ? JSON.parse(storedTasks) : [];
     setTasks(parsedTasks);
   }, []);
 
