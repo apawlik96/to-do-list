@@ -30,6 +30,14 @@ import Typography from "@mui/material/Typography";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import { WeatherWidget } from "../../components/WeatherWidget/WeatherWidget.jsx";
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Button,
+} from "@mui/material";
 
 const FilterType = {
   ACTIVE: "active",
@@ -66,6 +74,7 @@ export const ToDoList = () => {
   const [filteringType, setFilteringType] = useState();
   const [isDarkTheme, setIsDarkTheme] = useState(true);
   const [currentSort, setCurrentSort] = useState("newestTask");
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
 
   const saveTasksToCookies = (tasks) => {
     document.cookie = cookie.serialize("tasks", JSON.stringify(tasks));
@@ -137,6 +146,7 @@ export const ToDoList = () => {
     });
     setTasks(filteredTasks);
     saveTasksToCookies(filteredTasks);
+    setIsDeleteDialogOpen(false);
   };
 
   const taskFilters = {
@@ -280,9 +290,28 @@ export const ToDoList = () => {
                 setFilteringType={setFilteringType}
               />
             </StyledWrapperSelectButtonGroup>
-            <StyledButtonClearCompletedTask onClick={clearCompletedTasks}>
+            <StyledButtonClearCompletedTask
+              onClick={() => setIsDeleteDialogOpen(true)}
+            >
               Clear Completed
             </StyledButtonClearCompletedTask>
+
+            <Dialog
+              open={isDeleteDialogOpen}
+              onClose={() => setIsDeleteDialogOpen(false)}
+            >
+              <DialogTitle>Delete All Tasks</DialogTitle>
+              <DialogContent>
+                <DialogContentText>
+                  Do you want to delete all completed tasks? You will not be
+                  able to restore them.
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={() => setIsDeleteDialogOpen(false)}>No</Button>
+                <Button onClick={clearCompletedTasks}>Yes</Button>
+              </DialogActions>
+            </Dialog>
           </StyledWrapperSelect>
         </StyledWrapper>
 
