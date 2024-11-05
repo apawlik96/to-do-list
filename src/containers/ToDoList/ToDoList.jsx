@@ -102,9 +102,13 @@ export const ToDoList = () => {
       task.id === id ? { ...task, checked: !task.checked } : task
     );
 
-    toast.success("Task completed!", {
-      className: "custom-toast",
-    });
+    const completedTask = newTasksList.find((task) => task.id === id);
+
+    if (completedTask.checked) {
+      toast.success("Task completed!", {
+        className: "custom-toast",
+      });
+    }
 
     setTasks(newTasksList);
     saveTasksToCookies(newTasksList);
@@ -293,8 +297,7 @@ export const ToDoList = () => {
 
           <StyledWrapperSelect>
             <StyledParagraph>
-              {tasks.filter(taskFilters[FilterType.COMPLETED]).length} items
-              left
+              {totalTasksCount - numberOfCompletedTasks} items left
             </StyledParagraph>
             <StyledWrapperSelectButtonGroup>
               <ButtonFilter
