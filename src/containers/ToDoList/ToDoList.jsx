@@ -307,6 +307,7 @@ export const ToDoList = () => {
             </StyledWrapperSelectButtonGroup>
             <StyledButtonClearCompletedTask
               onClick={() => setIsDeleteDialogOpen(true)}
+              isDisabled={numberOfCompletedTasks === 0}
             >
               Clear Completed
             </StyledButtonClearCompletedTask>
