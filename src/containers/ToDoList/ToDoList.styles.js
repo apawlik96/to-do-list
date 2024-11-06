@@ -100,6 +100,10 @@ export const StyledWrapperNewTask = styled.div `
   justify-content: space-between;
   align-items: center;
 
+  input {
+    color: ${({ theme }) => theme.colorToDoList};
+  }
+
   button {
     width: 25px;
     height: 25px;
