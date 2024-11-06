@@ -93,9 +93,11 @@ export const WeatherWidget = () => {
 
   if (isLoading) {
     return (
-      <Box sx={{ display: "flex", justifyContent: "center" }}>
-        <CircularProgress />
-      </Box>
+      <StyledWrapper>
+        <Box sx={{ display: "flex", justifyContent: "center" }}>
+          <CircularProgress />
+        </Box>
+      </StyledWrapper>
     );
   }
 
