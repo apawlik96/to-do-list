@@ -86,6 +86,14 @@ export const ToDoList = () => {
     const cookies = cookie.parse(document.cookie || "");
     const storedTasks = cookies.tasks;
     const parsedTasks = storedTasks ? JSON.parse(storedTasks) : [];
+
+    const storedTheme = cookies.theme;
+    const isDark = storedTheme === "dark";
+    setIsDarkTheme(isDark);
+
+    document.body.classList.toggle("dark-theme", isDark);
+    document.body.classList.toggle("light-theme", !isDark);
+
     setTasks(parsedTasks);
   }, []);
 
@@ -94,9 +102,13 @@ export const ToDoList = () => {
       task.id === id ? { ...task, checked: !task.checked } : task
     );
 
-    toast.success("Task completed!", {
-      className: "custom-toast",
-    });
+    const completedTask = newTasksList.find((task) => task.id === id);
+
+    if (completedTask.checked) {
+      toast.success("Task completed!", {
+        className: "custom-toast",
+      });
+    }
 
     setTasks(newTasksList);
     saveTasksToCookies(newTasksList);
@@ -159,10 +171,14 @@ export const ToDoList = () => {
     : tasks;
 
   const handleThemeChange = () => {
-    setIsDarkTheme((prevState) => !prevState);
-    document.body.classList.toggle("light-theme", isDarkTheme);
-    toast.info("Theme changed!", {
-      className: "custom-toast",
+    setIsDarkTheme((prevState) => {
+      const isDarkTheme = !prevState;
+      document.cookie = cookie.serialize(
+        "theme",
+        isDarkTheme ? "dark" : "light"
+      );
+      document.body.classList.toggle("light-theme", !isDarkTheme);
+      return isDarkTheme;
     });
   };
 
@@ -281,8 +297,7 @@ export const ToDoList = () => {
 
           <StyledWrapperSelect>
             <StyledParagraph>
-              {tasks.filter(taskFilters[FilterType.COMPLETED]).length} items
-              left
+              {totalTasksCount - numberOfCompletedTasks} items left
             </StyledParagraph>
             <StyledWrapperSelectButtonGroup>
               <ButtonFilter
