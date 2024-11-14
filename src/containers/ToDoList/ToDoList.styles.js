@@ -82,10 +82,12 @@ export const StyledButtonClearCompletedTask = styled.button `
   font-weight: 400;
   transition: all 0.3s ease;
 
+  opacity: ${({ isDisabled }) => (isDisabled ? 0.3 : 1)};
+  cursor: ${({ isDisabled }) => (isDisabled ? 'not-allowed' : 'pointer')};
+
   &:hover {
-    color: #2e9acc;
-    cursor: pointer;
-  }
+    color: ${({ theme, isDisabled }) => (isDisabled ? theme.colorButtonFilter : '#2e9acc')
+  };
 `
 
 export const StyledWrapperNewTask = styled.div `
@@ -97,6 +99,10 @@ export const StyledWrapperNewTask = styled.div `
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  input {
+    color: ${({ theme }) => theme.colorToDoList};
+  }
 
   button {
     width: 25px;
