@@ -38,7 +38,8 @@ const weatherImages = {
 export const WeatherWidget = () => {
   const [temperatureUnit, setTemperatureUnit] = useState("C");
   const [location, setLocation] = useState(null);
-  const [weatherData, refreshWeather, isLoading, error] = useWeather(location);
+  const { weatherData, refreshWeather, isLoading, error } =
+    useWeather(location);
   const [isRefreshing, setIsRefreshing] = useState(false);
 
   useEffect(() => {

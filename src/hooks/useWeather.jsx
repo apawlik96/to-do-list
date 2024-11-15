@@ -21,7 +21,7 @@ export const useWeather = (location) => {
     fetchWeather();
   }, [location]);
 
-  return [weatherData, fetchWeather, isLoading, error];
+  return { weatherData, fetchWeather, isLoading, error };
 };
 
 export default useWeather;
