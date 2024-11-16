@@ -1,10 +1,11 @@
 import { StyledWrapper, StyledWrapperWeather } from "./WeatherWidget.styles";
 import { useState, useEffect } from "react";
 import getLocation from "../../services/location";
-import getWeather from "../../api/weather";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
-import { Switch, FormControlLabel } from "@mui/material";
+import { Switch, FormControlLabel, Button } from "@mui/material";
+import RefreshIcon from "@mui/icons-material/Refresh";
+import useWeather from "../../hooks/useWeather";
 
 const weatherImages = {
   rainy: {
@@ -35,26 +36,30 @@ const weatherImages = {
 };
 
 export const WeatherWidget = () => {
-  const [weatherData, setWeatherData] = useState(null);
-  const [error, setError] = useState(null);
   const [temperatureUnit, setTemperatureUnit] = useState("C");
-  const [isLoading, setIsLoading] = useState(true);
+  const [location, setLocation] = useState(null);
+  const { weatherData, refreshWeather, isLoading, error } =
+    useWeather(location);
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
   useEffect(() => {
-    const fetchWeather = async () => {
+    const fetchLocation = async () => {
       try {
-        const location = await getLocation();
-        const weather = await getWeather(location);
-        setWeatherData(weather);
+        const userLocation = await getLocation();
+        setLocation(userLocation);
       } catch (err) {
-        setError(err.message);
-      } finally {
-        setIsLoading(false);
+        setLocation(null);
       }
     };
 
-    fetchWeather();
+    fetchLocation();
   }, []);
+
+  const handleRefresh = async () => {
+    setIsRefreshing(true);
+    await refreshWeather();
+    setIsRefreshing(false);
+  };
 
   const getWeatherImage = () => {
     if (!weatherData) {
@@ -91,7 +96,7 @@ export const WeatherWidget = () => {
     setTemperatureUnit((prevUnit) => (prevUnit === "C" ? "F" : "C"));
   };
 
-  if (isLoading) {
+  if (isLoading || isRefreshing) {
     return (
       <StyledWrapper>
         <Box sx={{ display: "flex", justifyContent: "center" }}>
@@ -107,7 +112,12 @@ export const WeatherWidget = () => {
 
   return (
     <StyledWrapper>
-      <h1>Weather Forecast</h1>
+      <h1>
+        Weather Forecast
+        <Button onClick={handleRefresh}>
+          <RefreshIcon />
+        </Button>
+      </h1>
 
       <StyledWrapperWeather>
         <img
