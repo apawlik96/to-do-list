@@ -55,7 +55,7 @@ export const Task = ({
           </StyledParagraph>
         )}
         <StyledParagraphDate>{dateAdded}</StyledParagraphDate>
-        <StyledButton onClick={() => onDelete(id)}>
+        <StyledButton aria-label="delete-button" onClick={() => onDelete(id)}>
           <CloseIcon />
         </StyledButton>
       </StyledWrapper>
