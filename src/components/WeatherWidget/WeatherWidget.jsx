@@ -114,7 +114,7 @@ export const WeatherWidget = () => {
     <StyledWrapper>
       <h1>
         Weather Forecast
-        <Button onClick={handleRefresh}>
+        <Button aria-label="refresh-button" onClick={handleRefresh}>
           <RefreshIcon />
         </Button>
       </h1>

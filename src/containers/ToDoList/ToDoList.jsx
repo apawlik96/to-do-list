@@ -50,18 +50,21 @@ const ButtonFilter = ({ filteringType, setFilteringType }) => {
       <StyledFilterButton
         isActive={!filteringType}
         onClick={() => setFilteringType(null)}
+        aria-label="all-filter-button"
       >
         All
       </StyledFilterButton>
       <StyledFilterButton
         isActive={filteringType === FilterType.ACTIVE}
         onClick={() => setFilteringType(FilterType.ACTIVE)}
+        aria-label="active-filter-button"
       >
         Active
       </StyledFilterButton>
       <StyledFilterButton
         isActive={filteringType === FilterType.COMPLETED}
         onClick={() => setFilteringType(FilterType.COMPLETED)}
+        aria-label="completed-filter-button"
       >
         Completed
       </StyledFilterButton>
@@ -83,7 +86,7 @@ export const ToDoList = () => {
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
-    const cookies = cookie.parse(document.cookie || "");
+    const cookies = cookie.parse(document.cookie || "") || {};
     const storedTasks = cookies.tasks;
     const parsedTasks = storedTasks ? JSON.parse(storedTasks) : [];
 
@@ -270,7 +273,7 @@ export const ToDoList = () => {
           <StyledWrapperButtonSortDates>
             <p>
               Sort by{" "}
-              <button onClick={handleTaskSorting}>
+              <button aria-label="sort-button" onClick={handleTaskSorting}>
                 {currentSort === "newestTask" ? "newest" : "oldest"}
               </button>
             </p>
@@ -306,6 +309,7 @@ export const ToDoList = () => {
               />
             </StyledWrapperSelectButtonGroup>
             <StyledButtonClearCompletedTask
+              aria-label="clear-completed-button"
               onClick={() => setIsDeleteDialogOpen(true)}
               isDisabled={numberOfCompletedTasks === 0}
             >
@@ -324,8 +328,15 @@ export const ToDoList = () => {
                 </DialogContentText>
               </DialogContent>
               <DialogActions>
-                <Button onClick={() => setIsDeleteDialogOpen(false)}>No</Button>
-                <Button onClick={clearCompletedTasks}>Yes</Button>
+                <Button
+                  aria-label="no-button"
+                  onClick={() => setIsDeleteDialogOpen(false)}
+                >
+                  No
+                </Button>
+                <Button aria-label="yes-button" onClick={clearCompletedTasks}>
+                  Yes
+                </Button>
               </DialogActions>
             </Dialog>
           </StyledWrapperSelect>
@@ -346,3 +357,5 @@ export const ToDoList = () => {
     </>
   );
 };
+
+export default ToDoList;
